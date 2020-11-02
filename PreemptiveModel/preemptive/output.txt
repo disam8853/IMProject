@@ -1,0 +1,483 @@
+Topology: 
+link 0 : node 2 - node 1 Service Rate: 20
+link 1 : node 3 - node 2 Service Rate: 23
+link 2 : node 4 - node 2 Service Rate: 25
+link 3 : node 5 - node 1 Service Rate: 23
+link 4 : node 6 - node 2 Service Rate: 23
+link 5 : node 7 - node 2 Service Rate: 25
+link 6 : node 8 - node 6 Service Rate: 24
+link 7 : node 9 - node 2 Service Rate: 20
+link 8 : node 10 - node 1 Service Rate: 20
+link 9 : node 11 - node 8 Service Rate: 23
+link 10 : node 12 - node 7 Service Rate: 22
+link 11 : node 13 - node 5 Service Rate: 23
+link 12 : node 14 - node 2 Service Rate: 22
+link 13 : node 15 - node 10 Service Rate: 25
+link 14 : node 16 - node 3 Service Rate: 23
+link 15 : node 17 - node 11 Service Rate: 23
+link 16 : node 18 - node 2 Service Rate: 22
+link 17 : node 19 - node 1 Service Rate: 20
+link 18 : node 20 - node 11 Service Rate: 22
+link 19 : node 20 - node 6 Service Rate: 22
+link 20 : node 5 - node 19 Service Rate: 22
+link 21 : node 6 - node 19 Service Rate: 22
+link 22 : node 15 - node 2 Service Rate: 23
+link 23 : node 6 - node 15 Service Rate: 24
+link 24 : node 6 - node 14 Service Rate: 21
+link 25 : node 17 - node 19 Service Rate: 23
+link 26 : node 6 - node 7 Service Rate: 20
+link 27 : node 11 - node 13 Service Rate: 25
+link 28 : node 4 - node 5 Service Rate: 23
+link 29 : node 16 - node 10 Service Rate: 23
+link 30 : node 2 - node 8 Service Rate: 23
+link 31 : node 6 - node 1 Service Rate: 20
+link 32 : node 5 - node 20 Service Rate: 22
+link 33 : node 14 - node 8 Service Rate: 20
+link 34 : node 2 - node 11 Service Rate: 22
+link 35 : node 2 - node 20 Service Rate: 22
+link 36 : node 6 - node 11 Service Rate: 23
+link 37 : node 15 - node 3 Service Rate: 22
+link 38 : node 4 - node 14 Service Rate: 25
+link 39 : node 7 - node 11 Service Rate: 21
+link 40 : node 11 - node 19 Service Rate: 21
+link 41 : node 5 - node 17 Service Rate: 22
+link 42 : node 15 - node 13 Service Rate: 24
+link 43 : node 8 - node 20 Service Rate: 23
+link 44 : node 15 - node 11 Service Rate: 22
+link 45 : node 17 - node 16 Service Rate: 24
+link 46 : node 18 - node 7 Service Rate: 22
+link 47 : node 10 - node 8 Service Rate: 21
+link 48 : node 4 - node 18 Service Rate: 23
+link 49 : node 4 - node 15 Service Rate: 21
+link 50 : node 20 - node 9 Service Rate: 25
+link 51 : node 1 - node 7 Service Rate: 23
+link 52 : node 5 - node 14 Service Rate: 24
+link 53 : node 2 - node 10 Service Rate: 24
+link 54 : node 14 - node 20 Service Rate: 23
+link 55 : node 1 - node 15 Service Rate: 21
+link 56 : node 17 - node 14 Service Rate: 22
+link 57 : node 12 - node 20 Service Rate: 24
+link 58 : node 13 - node 16 Service Rate: 24
+link 59 : node 9 - node 5 Service Rate: 25
+link 60 : node 2 - node 12 Service Rate: 24
+link 61 : node 20 - node 3 Service Rate: 22
+link 62 : node 14 - node 1 Service Rate: 25
+link 63 : node 4 - node 6 Service Rate: 20
+link 64 : node 14 - node 3 Service Rate: 21
+link 65 : node 12 - node 18 Service Rate: 22
+link 66 : node 2 - node 17 Service Rate: 23
+link 67 : node 17 - node 9 Service Rate: 24
+link 68 : node 9 - node 7 Service Rate: 23
+link 69 : node 11 - node 16 Service Rate: 24
+link 70 : node 4 - node 1 Service Rate: 21
+link 71 : node 1 - node 8 Service Rate: 20
+link 72 : node 20 - node 19 Service Rate: 20
+link 73 : node 19 - node 13 Service Rate: 24
+link 74 : node 6 - node 16 Service Rate: 23
+link 75 : node 11 - node 14 Service Rate: 24
+link 76 : node 20 - node 13 Service Rate: 24
+link 77 : node 14 - node 10 Service Rate: 21
+link 78 : node 18 - node 9 Service Rate: 25
+link 79 : node 1 - node 20 Service Rate: 22
+link 80 : node 3 - node 8 Service Rate: 20
+link 81 : node 4 - node 13 Service Rate: 24
+link 82 : node 4 - node 9 Service Rate: 24
+link 83 : node 16 - node 15 Service Rate: 20
+link 84 : node 16 - node 12 Service Rate: 23
+link 85 : node 18 - node 16 Service Rate: 24
+link 86 : node 17 - node 4 Service Rate: 20
+link 87 : node 2 - node 19 Service Rate: 23
+link 88 : node 3 - node 7 Service Rate: 22
+link 89 : node 15 - node 8 Service Rate: 22
+link 90 : node 10 - node 6 Service Rate: 23
+link 91 : node 16 - node 20 Service Rate: 25
+link 92 : node 6 - node 18 Service Rate: 25
+link 93 : node 5 - node 15 Service Rate: 20
+link 94 : node 14 - node 16 Service Rate: 20
+link 95 : node 11 - node 3 Service Rate: 20
+link 96 : node 16 - node 9 Service Rate: 25
+link 97 : node 9 - node 14 Service Rate: 25
+link 98 : node 9 - node 13 Service Rate: 21
+link 99 : node 17 - node 8 Service Rate: 24
+
+O-D pair Results: 
+O-D pair 0 1 -> 2: [1, 2] Priority k = [2] 
+O-D pair 1 1 -> 3: [1, 15, 3] Priority k = [2, 2] 
+O-D pair 2 1 -> 4: [1, 4] Priority k = [1] 
+O-D pair 3 1 -> 5: [1, 5] Priority k = [1] 
+O-D pair 4 1 -> 6: [1, 6] Priority k = [1] 
+O-D pair 5 1 -> 7: [1, 7] Priority k = [1] 
+O-D pair 6 1 -> 8: [1, 8] Priority k = [2] 
+O-D pair 7 1 -> 9: [1, 7, 9] Priority k = [1, 2] 
+O-D pair 8 1 -> 10: [1, 10] Priority k = [1] 
+O-D pair 9 1 -> 11: [1, 8, 11] Priority k = [2, 1] 
+O-D pair 10 1 -> 12: [1, 20, 12] Priority k = [2, 1] 
+O-D pair 11 1 -> 13: [1, 20, 13] Priority k = [2, 2] 
+O-D pair 12 1 -> 14: [1, 14] Priority k = [1] 
+O-D pair 13 1 -> 15: [1, 15] Priority k = [2] 
+O-D pair 14 1 -> 16: [1, 20, 16] Priority k = [1, 2] 
+O-D pair 15 1 -> 17: [1, 19, 17] Priority k = [2, 1] 
+O-D pair 16 1 -> 18: [1, 2, 18] Priority k = [2, 2] 
+O-D pair 17 1 -> 19: [1, 19] Priority k = [1] 
+O-D pair 18 1 -> 20: [1, 20] Priority k = [1] 
+O-D pair 19 2 -> 1: [2, 1] Priority k = [1] 
+O-D pair 20 2 -> 3: [2, 3] Priority k = [1] 
+O-D pair 21 2 -> 4: [2, 4] Priority k = [1] 
+O-D pair 22 2 -> 5: [2, 17, 5] Priority k = [2, 1] 
+O-D pair 23 2 -> 6: [2, 6] Priority k = [1] 
+O-D pair 24 2 -> 7: [2, 7] Priority k = [1] 
+O-D pair 25 2 -> 8: [2, 8] Priority k = [2] 
+O-D pair 26 2 -> 9: [2, 9] Priority k = [2] 
+O-D pair 27 2 -> 10: [2, 10] Priority k = [2] 
+O-D pair 28 2 -> 11: [2, 11] Priority k = [1] 
+O-D pair 29 2 -> 12: [2, 12] Priority k = [2] 
+O-D pair 30 2 -> 13: [2, 15, 13] Priority k = [2, 2] 
+O-D pair 31 2 -> 14: [2, 14] Priority k = [2] 
+O-D pair 32 2 -> 15: [2, 15] Priority k = [2] 
+O-D pair 33 2 -> 16: [2, 12, 16] Priority k = [1, 2] 
+O-D pair 34 2 -> 17: [2, 17] Priority k = [2] 
+O-D pair 35 2 -> 18: [2, 18] Priority k = [1] 
+O-D pair 36 2 -> 19: [2, 19] Priority k = [1] 
+O-D pair 37 2 -> 20: [2, 20] Priority k = [1] 
+O-D pair 38 3 -> 1: [3, 20, 1] Priority k = [1, 2] 
+O-D pair 39 3 -> 2: [3, 2] Priority k = [2] 
+O-D pair 40 3 -> 4: [3, 14, 4] Priority k = [1, 0] 
+O-D pair 41 3 -> 5: [3, 14, 5] Priority k = [2, 2] 
+O-D pair 42 3 -> 6: [3, 7, 6] Priority k = [2, 1] 
+O-D pair 43 3 -> 7: [3, 7] Priority k = [2] 
+O-D pair 44 3 -> 8: [3, 8] Priority k = [0] 
+O-D pair 45 3 -> 9: [3, 7, 9] Priority k = [2, 1] 
+O-D pair 46 3 -> 10: [3, 8, 10] Priority k = [0, 2] 
+O-D pair 47 3 -> 11: [3, 11] Priority k = [2] 
+O-D pair 48 3 -> 12: [3, 2, 12] Priority k = [2, 2] 
+O-D pair 49 3 -> 13: [3, 16, 13] Priority k = [2, 2] 
+O-D pair 50 3 -> 14: [3, 14] Priority k = [2] 
+O-D pair 51 3 -> 15: [3, 15] Priority k = [2] 
+O-D pair 52 3 -> 16: [3, 16] Priority k = [1] 
+O-D pair 53 3 -> 17: [3, 11, 17] Priority k = [2, 2] 
+O-D pair 54 3 -> 18: [3, 7, 18] Priority k = [2, 1] 
+O-D pair 55 3 -> 19: [3, 11, 19] Priority k = [1, 1] 
+O-D pair 56 3 -> 20: [3, 20] Priority k = [0] 
+O-D pair 57 4 -> 1: [4, 1] Priority k = [0] 
+O-D pair 58 4 -> 2: [4, 2] Priority k = [1] 
+O-D pair 59 4 -> 3: [4, 15, 3] Priority k = [1, 1] 
+O-D pair 60 4 -> 5: [4, 5] Priority k = [1] 
+O-D pair 61 4 -> 6: [4, 6] Priority k = [2] 
+O-D pair 62 4 -> 7: [4, 9, 7] Priority k = [2, 1] 
+O-D pair 63 4 -> 8: [4, 15, 8] Priority k = [1, 1] 
+O-D pair 64 4 -> 9: [4, 9] Priority k = [1] 
+O-D pair 65 4 -> 10: [4, 1, 10] Priority k = [1, 2] 
+O-D pair 66 4 -> 11: [4, 15, 11] Priority k = [1, 1] 
+O-D pair 67 4 -> 12: [4, 2, 12] Priority k = [2, 1] 
+O-D pair 68 4 -> 13: [4, 13] Priority k = [2] 
+O-D pair 69 4 -> 14: [4, 14] Priority k = [2] 
+O-D pair 70 4 -> 15: [4, 15] Priority k = [2] 
+O-D pair 71 4 -> 16: [4, 13, 16] Priority k = [1, 1] 
+O-D pair 72 4 -> 17: [4, 17] Priority k = [1] 
+O-D pair 73 4 -> 18: [4, 18] Priority k = [1] 
+O-D pair 74 4 -> 19: [4, 6, 19] Priority k = [2, 0] 
+O-D pair 75 4 -> 20: [4, 1, 20] Priority k = [1, 1] 
+O-D pair 76 5 -> 1: [5, 1] Priority k = [2] 
+O-D pair 77 5 -> 2: [5, 9, 2] Priority k = [2, 2] 
+O-D pair 78 5 -> 3: [5, 15, 3] Priority k = [2, 0] 
+O-D pair 79 5 -> 4: [5, 4] Priority k = [2] 
+O-D pair 80 5 -> 6: [5, 4, 6] Priority k = [1, 1] 
+O-D pair 81 5 -> 7: [5, 1, 7] Priority k = [2, 2] 
+O-D pair 82 5 -> 8: [5, 15, 8] Priority k = [1, 2] 
+O-D pair 83 5 -> 9: [5, 9] Priority k = [1] 
+O-D pair 84 5 -> 10: [5, 15, 10] Priority k = [2, 0] 
+O-D pair 85 5 -> 11: [5, 20, 11] Priority k = [1, 1] 
+O-D pair 86 5 -> 12: [5, 20, 12] Priority k = [2, 2] 
+O-D pair 87 5 -> 13: [5, 13] Priority k = [2] 
+O-D pair 88 5 -> 14: [5, 14] Priority k = [2] 
+O-D pair 89 5 -> 15: [5, 15] Priority k = [2] 
+O-D pair 90 5 -> 16: [5, 17, 16] Priority k = [2, 1] 
+O-D pair 91 5 -> 17: [5, 17] Priority k = [2] 
+O-D pair 92 5 -> 18: [5, 4, 18] Priority k = [2, 1] 
+O-D pair 93 5 -> 19: [5, 19] Priority k = [1] 
+O-D pair 94 5 -> 20: [5, 20] Priority k = [2] 
+O-D pair 95 6 -> 1: [6, 1] Priority k = [0] 
+O-D pair 96 6 -> 2: [6, 2] Priority k = [1] 
+O-D pair 97 6 -> 3: [6, 11, 3] Priority k = [1, 1] 
+O-D pair 98 6 -> 4: [6, 4] Priority k = [2] 
+O-D pair 99 6 -> 5: [6, 15, 5] Priority k = [1, 2] 
+O-D pair 100 6 -> 7: [6, 7] Priority k = [2] 
+O-D pair 101 6 -> 8: [6, 8] Priority k = [2] 
+O-D pair 102 6 -> 9: [6, 4, 9] Priority k = [0, 2] 
+O-D pair 103 6 -> 10: [6, 10] Priority k = [1] 
+O-D pair 104 6 -> 11: [6, 11] Priority k = [0] 
+O-D pair 105 6 -> 12: [6, 18, 12] Priority k = [1, 1] 
+O-D pair 106 6 -> 13: [6, 15, 13] Priority k = [2, 2] 
+O-D pair 107 6 -> 14: [6, 14] Priority k = [1] 
+O-D pair 108 6 -> 15: [6, 15] Priority k = [1] 
+O-D pair 109 6 -> 16: [6, 16] Priority k = [2] 
+O-D pair 110 6 -> 17: [6, 11, 17] Priority k = [2, 0] 
+O-D pair 111 6 -> 18: [6, 18] Priority k = [1] 
+O-D pair 112 6 -> 19: [6, 19] Priority k = [1] 
+O-D pair 113 6 -> 20: [6, 20] Priority k = [2] 
+O-D pair 114 7 -> 1: [7, 1] Priority k = [1] 
+O-D pair 115 7 -> 2: [7, 2] Priority k = [2] 
+O-D pair 116 7 -> 3: [7, 3] Priority k = [1] 
+O-D pair 117 7 -> 4: [7, 9, 4] Priority k = [1, 1] 
+O-D pair 118 7 -> 5: [7, 1, 5] Priority k = [0, 1] 
+O-D pair 119 7 -> 6: [7, 6] Priority k = [1] 
+O-D pair 120 7 -> 8: [7, 3, 8] Priority k = [1, 1] 
+O-D pair 121 7 -> 9: [7, 9] Priority k = [2] 
+O-D pair 122 7 -> 10: [7, 1, 10] Priority k = [1, 2] 
+O-D pair 123 7 -> 11: [7, 11] Priority k = [1] 
+O-D pair 124 7 -> 12: [7, 12] Priority k = [0] 
+O-D pair 125 7 -> 13: [7, 11, 13] Priority k = [2, 0] 
+O-D pair 126 7 -> 14: [7, 11, 14] Priority k = [2, 1] 
+O-D pair 127 7 -> 15: [7, 3, 15] Priority k = [1, 1] 
+O-D pair 128 7 -> 16: [7, 11, 16] Priority k = [0, 2] 
+O-D pair 129 7 -> 17: [7, 9, 17] Priority k = [0, 0] 
+O-D pair 130 7 -> 18: [7, 18] Priority k = [2] 
+O-D pair 131 7 -> 19: [7, 2, 19] Priority k = [1, 2] 
+O-D pair 132 7 -> 20: [7, 1, 20] Priority k = [2, 1] 
+O-D pair 133 8 -> 1: [8, 1] Priority k = [0] 
+O-D pair 134 8 -> 2: [8, 2] Priority k = [1] 
+O-D pair 135 8 -> 3: [8, 3] Priority k = [2] 
+O-D pair 136 8 -> 4: [8, 14, 4] Priority k = [1, 0] 
+O-D pair 137 8 -> 5: [8, 17, 5] Priority k = [2, 1] 
+O-D pair 138 8 -> 6: [8, 6] Priority k = [1] 
+O-D pair 139 8 -> 7: [8, 3, 7] Priority k = [1, 2] 
+O-D pair 140 8 -> 9: [8, 2, 9] Priority k = [1, 1] 
+O-D pair 141 8 -> 10: [8, 10] Priority k = [2] 
+O-D pair 142 8 -> 11: [8, 11] Priority k = [2] 
+O-D pair 143 8 -> 12: [8, 2, 12] Priority k = [2, 2] 
+O-D pair 144 8 -> 13: [8, 15, 13] Priority k = [0, 1] 
+O-D pair 145 8 -> 14: [8, 14] Priority k = [1] 
+O-D pair 146 8 -> 15: [8, 15] Priority k = [1] 
+O-D pair 147 8 -> 16: [8, 15, 16] Priority k = [2, 2] 
+O-D pair 148 8 -> 17: [8, 17] Priority k = [2] 
+O-D pair 149 8 -> 18: [8, 6, 18] Priority k = [2, 1] 
+O-D pair 150 8 -> 19: [8, 2, 19] Priority k = [1, 1] 
+O-D pair 151 8 -> 20: [8, 20] Priority k = [2] 
+O-D pair 152 9 -> 1: [9, 5, 1] Priority k = [1, 1] 
+O-D pair 153 9 -> 2: [9, 2] Priority k = [2] 
+O-D pair 154 9 -> 3: [9, 14, 3] Priority k = [1, 1] 
+O-D pair 155 9 -> 4: [9, 4] Priority k = [2] 
+O-D pair 156 9 -> 5: [9, 5] Priority k = [1] 
+O-D pair 157 9 -> 6: [9, 4, 6] Priority k = [1, 2] 
+O-D pair 158 9 -> 7: [9, 7] Priority k = [1] 
+O-D pair 159 9 -> 8: [9, 2, 8] Priority k = [0, 1] 
+O-D pair 160 9 -> 10: [9, 14, 10] Priority k = [1, 1] 
+O-D pair 161 9 -> 11: [9, 16, 11] Priority k = [1, 2] 
+O-D pair 162 9 -> 12: [9, 16, 12] Priority k = [1, 1] 
+O-D pair 163 9 -> 13: [9, 13] Priority k = [2] 
+O-D pair 164 9 -> 14: [9, 14] Priority k = [1] 
+O-D pair 165 9 -> 15: [9, 13, 15] Priority k = [1, 1] 
+O-D pair 166 9 -> 16: [9, 16] Priority k = [2] 
+O-D pair 167 9 -> 17: [9, 17] Priority k = [1] 
+O-D pair 168 9 -> 18: [9, 18] Priority k = [1] 
+O-D pair 169 9 -> 19: [9, 13, 19] Priority k = [2, 0] 
+O-D pair 170 9 -> 20: [9, 20] Priority k = [0] 
+O-D pair 171 10 -> 1: [10, 1] Priority k = [2] 
+O-D pair 172 10 -> 2: [10, 2] Priority k = [2] 
+O-D pair 173 10 -> 3: [10, 14, 3] Priority k = [1, 2] 
+O-D pair 174 10 -> 4: [10, 6, 4] Priority k = [1, 0] 
+O-D pair 175 10 -> 5: [10, 14, 5] Priority k = [1, 1] 
+O-D pair 176 10 -> 6: [10, 6] Priority k = [1] 
+O-D pair 177 10 -> 7: [10, 6, 7] Priority k = [2, 1] 
+O-D pair 178 10 -> 8: [10, 8] Priority k = [1] 
+O-D pair 179 10 -> 9: [10, 14, 9] Priority k = [2, 1] 
+O-D pair 180 10 -> 11: [10, 8, 11] Priority k = [1, 2] 
+O-D pair 181 10 -> 12: [10, 16, 12] Priority k = [1, 2] 
+O-D pair 182 10 -> 13: [10, 15, 13] Priority k = [2, 2] 
+O-D pair 183 10 -> 14: [10, 14] Priority k = [1] 
+O-D pair 184 10 -> 15: [10, 15] Priority k = [2] 
+O-D pair 185 10 -> 16: [10, 16] Priority k = [1] 
+O-D pair 186 10 -> 17: [10, 16, 17] Priority k = [2, 1] 
+O-D pair 187 10 -> 18: [10, 6, 18] Priority k = [2, 2] 
+O-D pair 188 10 -> 19: [10, 6, 19] Priority k = [1, 2] 
+O-D pair 189 10 -> 20: [10, 8, 20] Priority k = [1, 2] 
+O-D pair 190 11 -> 1: [11, 15, 1] Priority k = [1, 0] 
+O-D pair 191 11 -> 2: [11, 2] Priority k = [1] 
+O-D pair 192 11 -> 3: [11, 3] Priority k = [1] 
+O-D pair 193 11 -> 4: [11, 2, 4] Priority k = [1, 1] 
+O-D pair 194 11 -> 5: [11, 13, 5] Priority k = [2, 1] 
+O-D pair 195 11 -> 6: [11, 6] Priority k = [1] 
+O-D pair 196 11 -> 7: [11, 7] Priority k = [1] 
+O-D pair 197 11 -> 8: [11, 8] Priority k = [1] 
+O-D pair 198 11 -> 9: [11, 7, 9] Priority k = [2, 2] 
+O-D pair 199 11 -> 10: [11, 6, 10] Priority k = [2, 1] 
+O-D pair 200 11 -> 12: [11, 20, 12] Priority k = [2, 0] 
+O-D pair 201 11 -> 13: [11, 13] Priority k = [2] 
+O-D pair 202 11 -> 14: [11, 14] Priority k = [0] 
+O-D pair 203 11 -> 15: [11, 15] Priority k = [0] 
+O-D pair 204 11 -> 16: [11, 16] Priority k = [2] 
+O-D pair 205 11 -> 17: [11, 17] Priority k = [1] 
+O-D pair 206 11 -> 18: [11, 2, 18] Priority k = [1, 1] 
+O-D pair 207 11 -> 19: [11, 19] Priority k = [1] 
+O-D pair 208 11 -> 20: [11, 20] Priority k = [2] 
+O-D pair 209 12 -> 1: [12, 2, 1] Priority k = [2, 1] 
+O-D pair 210 12 -> 2: [12, 2] Priority k = [0] 
+O-D pair 211 12 -> 3: [12, 7, 3] Priority k = [2, 1] 
+O-D pair 212 12 -> 4: [12, 2, 4] Priority k = [1, 2] 
+O-D pair 213 12 -> 5: [12, 20, 5] Priority k = [1, 2] 
+O-D pair 214 12 -> 6: [12, 16, 6] Priority k = [1, 1] 
+O-D pair 215 12 -> 7: [12, 7] Priority k = [1] 
+O-D pair 216 12 -> 8: [12, 20, 8] Priority k = [1, 1] 
+O-D pair 217 12 -> 9: [12, 16, 9] Priority k = [1, 2] 
+O-D pair 218 12 -> 10: [12, 2, 10] Priority k = [2, 1] 
+O-D pair 219 12 -> 11: [12, 7, 11] Priority k = [2, 2] 
+O-D pair 220 12 -> 13: [12, 20, 13] Priority k = [0, 2] 
+O-D pair 221 12 -> 14: [12, 16, 14] Priority k = [2, 1] 
+O-D pair 222 12 -> 15: [12, 2, 15] Priority k = [1, 2] 
+O-D pair 223 12 -> 16: [12, 16] Priority k = [2] 
+O-D pair 224 12 -> 17: [12, 2, 17] Priority k = [2, 1] 
+O-D pair 225 12 -> 18: [12, 18] Priority k = [1] 
+O-D pair 226 12 -> 19: [12, 20, 19] Priority k = [2, 1] 
+O-D pair 227 12 -> 20: [12, 20] Priority k = [2] 
+O-D pair 228 13 -> 1: [13, 4, 1] Priority k = [2, 1] 
+O-D pair 229 13 -> 2: [13, 19, 2] Priority k = [0, 1] 
+O-D pair 230 13 -> 3: [13, 11, 3] Priority k = [2, 1] 
+O-D pair 231 13 -> 4: [13, 4] Priority k = [1] 
+O-D pair 232 13 -> 5: [13, 5] Priority k = [1] 
+O-D pair 233 13 -> 6: [13, 16, 6] Priority k = [1, 1] 
+O-D pair 234 13 -> 7: [13, 11, 7] Priority k = [2, 1] 
+O-D pair 235 13 -> 8: [13, 20, 8] Priority k = [1, 1] 
+O-D pair 236 13 -> 9: [13, 9] Priority k = [2] 
+O-D pair 237 13 -> 10: [13, 15, 10] Priority k = [0, 2] 
+O-D pair 238 13 -> 11: [13, 11] Priority k = [0] 
+O-D pair 239 13 -> 12: [13, 16, 12] Priority k = [2, 2] 
+O-D pair 240 13 -> 14: [13, 16, 14] Priority k = [1, 1] 
+O-D pair 241 13 -> 15: [13, 15] Priority k = [1] 
+O-D pair 242 13 -> 16: [13, 16] Priority k = [1] 
+O-D pair 243 13 -> 17: [13, 16, 17] Priority k = [0, 1] 
+O-D pair 244 13 -> 18: [13, 9, 18] Priority k = [0, 1] 
+O-D pair 245 13 -> 19: [13, 19] Priority k = [2] 
+O-D pair 246 13 -> 20: [13, 20] Priority k = [1] 
+O-D pair 247 14 -> 1: [14, 1] Priority k = [2] 
+O-D pair 248 14 -> 2: [14, 2] Priority k = [1] 
+O-D pair 249 14 -> 3: [14, 3] Priority k = [2] 
+O-D pair 250 14 -> 4: [14, 4] Priority k = [2] 
+O-D pair 251 14 -> 5: [14, 5] Priority k = [1] 
+O-D pair 252 14 -> 6: [14, 6] Priority k = [1] 
+O-D pair 253 14 -> 7: [14, 1, 7] Priority k = [2, 1] 
+O-D pair 254 14 -> 8: [14, 8] Priority k = [2] 
+O-D pair 255 14 -> 9: [14, 9] Priority k = [0] 
+O-D pair 256 14 -> 10: [14, 10] Priority k = [1] 
+O-D pair 257 14 -> 11: [14, 11] Priority k = [2] 
+O-D pair 258 14 -> 12: [14, 16, 12] Priority k = [2, 2] 
+O-D pair 259 14 -> 13: [14, 20, 13] Priority k = [2, 1] 
+O-D pair 260 14 -> 15: [14, 16, 15] Priority k = [2, 2] 
+O-D pair 261 14 -> 16: [14, 16] Priority k = [2] 
+O-D pair 262 14 -> 17: [14, 17] Priority k = [2] 
+O-D pair 263 14 -> 18: [14, 9, 18] Priority k = [2, 0] 
+O-D pair 264 14 -> 19: [14, 17, 19] Priority k = [2, 1] 
+O-D pair 265 14 -> 20: [14, 20] Priority k = [2] 
+O-D pair 266 15 -> 1: [15, 1] Priority k = [1] 
+O-D pair 267 15 -> 2: [15, 2] Priority k = [1] 
+O-D pair 268 15 -> 3: [15, 3] Priority k = [2] 
+O-D pair 269 15 -> 4: [15, 4] Priority k = [2] 
+O-D pair 270 15 -> 5: [15, 5] Priority k = [1] 
+O-D pair 271 15 -> 6: [15, 6] Priority k = [1] 
+O-D pair 272 15 -> 7: [15, 1, 7] Priority k = [1, 1] 
+O-D pair 273 15 -> 8: [15, 8] Priority k = [1] 
+O-D pair 274 15 -> 9: [15, 5, 9] Priority k = [1, 2] 
+O-D pair 275 15 -> 10: [15, 10] Priority k = [1] 
+O-D pair 276 15 -> 11: [15, 11] Priority k = [0] 
+O-D pair 277 15 -> 12: [15, 2, 12] Priority k = [1, 2] 
+O-D pair 278 15 -> 13: [15, 13] Priority k = [2] 
+O-D pair 279 15 -> 14: [15, 5, 14] Priority k = [2, 2] 
+O-D pair 280 15 -> 16: [15, 16] Priority k = [2] 
+O-D pair 281 15 -> 17: [15, 4, 17] Priority k = [2, 2] 
+O-D pair 282 15 -> 18: [15, 2, 18] Priority k = [0, 2] 
+O-D pair 283 15 -> 19: [15, 13, 19] Priority k = [1, 2] 
+O-D pair 284 15 -> 20: [15, 5, 20] Priority k = [1, 2] 
+O-D pair 285 16 -> 1: [16, 14, 1] Priority k = [1, 2] 
+O-D pair 286 16 -> 2: [16, 14, 2] Priority k = [1, 1] 
+O-D pair 287 16 -> 3: [16, 3] Priority k = [2] 
+O-D pair 288 16 -> 4: [16, 18, 4] Priority k = [1, 1] 
+O-D pair 289 16 -> 5: [16, 15, 5] Priority k = [2, 1] 
+O-D pair 290 16 -> 6: [16, 6] Priority k = [1] 
+O-D pair 291 16 -> 7: [16, 6, 7] Priority k = [1, 1] 
+O-D pair 292 16 -> 8: [16, 20, 8] Priority k = [0, 1] 
+O-D pair 293 16 -> 9: [16, 9] Priority k = [1] 
+O-D pair 294 16 -> 10: [16, 10] Priority k = [2] 
+O-D pair 295 16 -> 11: [16, 11] Priority k = [2] 
+O-D pair 296 16 -> 12: [16, 12] Priority k = [1] 
+O-D pair 297 16 -> 13: [16, 13] Priority k = [0] 
+O-D pair 298 16 -> 14: [16, 14] Priority k = [1] 
+O-D pair 299 16 -> 15: [16, 15] Priority k = [1] 
+O-D pair 300 16 -> 17: [16, 17] Priority k = [2] 
+O-D pair 301 16 -> 18: [16, 18] Priority k = [2] 
+O-D pair 302 16 -> 19: [16, 20, 19] Priority k = [1, 1] 
+O-D pair 303 16 -> 20: [16, 20] Priority k = [0] 
+O-D pair 304 17 -> 1: [17, 14, 1] Priority k = [0, 0] 
+O-D pair 305 17 -> 2: [17, 2] Priority k = [1] 
+O-D pair 306 17 -> 3: [17, 8, 3] Priority k = [1, 2] 
+O-D pair 307 17 -> 4: [17, 4] Priority k = [1] 
+O-D pair 308 17 -> 5: [17, 5] Priority k = [2] 
+O-D pair 309 17 -> 6: [17, 2, 6] Priority k = [2, 0] 
+O-D pair 310 17 -> 7: [17, 9, 7] Priority k = [2, 1] 
+O-D pair 311 17 -> 8: [17, 8] Priority k = [2] 
+O-D pair 312 17 -> 9: [17, 9] Priority k = [0] 
+O-D pair 313 17 -> 10: [17, 16, 10] Priority k = [2, 1] 
+O-D pair 314 17 -> 11: [17, 11] Priority k = [2] 
+O-D pair 315 17 -> 12: [17, 16, 12] Priority k = [1, 2] 
+O-D pair 316 17 -> 13: [17, 5, 13] Priority k = [2, 1] 
+O-D pair 317 17 -> 14: [17, 14] Priority k = [1] 
+O-D pair 318 17 -> 15: [17, 16, 15] Priority k = [1, 0] 
+O-D pair 319 17 -> 16: [17, 16] Priority k = [1] 
+O-D pair 320 17 -> 18: [17, 16, 18] Priority k = [2, 2] 
+O-D pair 321 17 -> 19: [17, 19] Priority k = [0] 
+O-D pair 322 17 -> 20: [17, 9, 20] Priority k = [2, 2] 
+O-D pair 323 18 -> 1: [18, 2, 1] Priority k = [1, 0] 
+O-D pair 324 18 -> 2: [18, 2] Priority k = [2] 
+O-D pair 325 18 -> 3: [18, 16, 3] Priority k = [1, 0] 
+O-D pair 326 18 -> 4: [18, 4] Priority k = [2] 
+O-D pair 327 18 -> 5: [18, 4, 5] Priority k = [2, 1] 
+O-D pair 328 18 -> 6: [18, 6] Priority k = [1] 
+O-D pair 329 18 -> 7: [18, 7] Priority k = [0] 
+O-D pair 330 18 -> 8: [18, 2, 8] Priority k = [2, 2] 
+O-D pair 331 18 -> 9: [18, 9] Priority k = [1] 
+O-D pair 332 18 -> 10: [18, 6, 10] Priority k = [2, 1] 
+O-D pair 333 18 -> 11: [18, 2, 11] Priority k = [2, 1] 
+O-D pair 334 18 -> 12: [18, 12] Priority k = [1] 
+O-D pair 335 18 -> 13: [18, 16, 13] Priority k = [2, 2] 
+O-D pair 336 18 -> 14: [18, 6, 14] Priority k = [1, 1] 
+O-D pair 337 18 -> 15: [18, 2, 15] Priority k = [0, 2] 
+O-D pair 338 18 -> 16: [18, 16] Priority k = [0] 
+O-D pair 339 18 -> 17: [18, 2, 17] Priority k = [1, 1] 
+O-D pair 340 18 -> 19: [18, 2, 19] Priority k = [1, 1] 
+O-D pair 341 18 -> 20: [18, 6, 20] Priority k = [2, 1] 
+O-D pair 342 19 -> 1: [19, 1] Priority k = [2] 
+O-D pair 343 19 -> 2: [19, 2] Priority k = [1] 
+O-D pair 344 19 -> 3: [19, 2, 3] Priority k = [1, 2] 
+O-D pair 345 19 -> 4: [19, 6, 4] Priority k = [2, 1] 
+O-D pair 346 19 -> 5: [19, 5] Priority k = [1] 
+O-D pair 347 19 -> 6: [19, 6] Priority k = [2] 
+O-D pair 348 19 -> 7: [19, 1, 7] Priority k = [1, 2] 
+O-D pair 349 19 -> 8: [19, 17, 8] Priority k = [1, 1] 
+O-D pair 350 19 -> 9: [19, 2, 9] Priority k = [1, 1] 
+O-D pair 351 19 -> 10: [19, 2, 10] Priority k = [1, 2] 
+O-D pair 352 19 -> 11: [19, 11] Priority k = [1] 
+O-D pair 353 19 -> 12: [19, 20, 12] Priority k = [1, 2] 
+O-D pair 354 19 -> 13: [19, 13] Priority k = [0] 
+O-D pair 355 19 -> 14: [19, 11, 14] Priority k = [1, 2] 
+O-D pair 356 19 -> 15: [19, 6, 15] Priority k = [1, 2] 
+O-D pair 357 19 -> 16: [19, 13, 16] Priority k = [1, 1] 
+O-D pair 358 19 -> 17: [19, 17] Priority k = [2] 
+O-D pair 359 19 -> 18: [19, 6, 18] Priority k = [1, 2] 
+O-D pair 360 19 -> 20: [19, 20] Priority k = [1] 
+O-D pair 361 20 -> 1: [20, 1] Priority k = [1] 
+O-D pair 362 20 -> 2: [20, 2] Priority k = [0] 
+O-D pair 363 20 -> 3: [20, 3] Priority k = [1] 
+O-D pair 364 20 -> 4: [20, 14, 4] Priority k = [1, 2] 
+O-D pair 365 20 -> 5: [20, 5] Priority k = [1] 
+O-D pair 366 20 -> 6: [20, 6] Priority k = [1] 
+O-D pair 367 20 -> 7: [20, 12, 7] Priority k = [2, 2] 
+O-D pair 368 20 -> 8: [20, 8] Priority k = [2] 
+O-D pair 369 20 -> 9: [20, 9] Priority k = [2] 
+O-D pair 370 20 -> 10: [20, 8, 10] Priority k = [1, 0] 
+O-D pair 371 20 -> 11: [20, 11] Priority k = [2] 
+O-D pair 372 20 -> 12: [20, 12] Priority k = [2] 
+O-D pair 373 20 -> 13: [20, 13] Priority k = [1] 
+O-D pair 374 20 -> 14: [20, 14] Priority k = [2] 
+O-D pair 375 20 -> 15: [20, 16, 15] Priority k = [2, 2] 
+O-D pair 376 20 -> 16: [20, 16] Priority k = [1] 
+O-D pair 377 20 -> 17: [20, 19, 17] Priority k = [1, 1] 
+O-D pair 378 20 -> 18: [20, 16, 18] Priority k = [1, 1] 
+O-D pair 379 20 -> 19: [20, 19] Priority k = [0] 
