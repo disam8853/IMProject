@@ -1,6 +1,9 @@
 #%%
 import numpy as np
 import pandas as pd
+import json
+import os
+from datetime import datetime
 # %%
 f = open("output.txt", 'r')
 output = f.read()
@@ -57,7 +60,6 @@ print(node_style)
 df = pd.read_csv("./link.csv")
 
 capa = pd.read_csv("capacity.csv")
-capa
 #%%
 def JudgeStyle(data, node_style):
     if data < node_style[0]:
@@ -75,21 +77,50 @@ def JudgeStyle(data, node_style):
 last = df['origin'][link[0]]
 count = 0
 ind = 0
+link_dict = {}
+key = "Method " + str(count)
+link_dict[key] = {}
+link_dict[key]["link"] = []
+link_dict[key]["capacity"] = []
 print("Method {}:".format(count))
 for idx in link:
     if last != df['origin'][idx]:
+        
+        link_dict[key]["link"].append(int(last))
         count += 1
+        key = "Method " + str(count)
+        link_dict[key] = {}
+        link_dict[key]["link"] = []
+        link_dict[key]["capacity"] = []
         print("{}\n\nMethod {}:".format(last,count))
     # print("{} -> {}".format(df["origin"][idx], df["destination"][idx]))
     style = JudgeStyle(idx, node_style)
     capacity = capa[style][link_level[ind]]
+    
+    link_dict[key]["link"].append(int(df["origin"][idx]))
+    link_dict[key]["capacity"].append(int(capacity))
     print("{} =({})=> ".format(df["origin"][idx], capacity), end="")
     last = df["destination"][idx]
     ind += 1
 
+link_dict[key]["link"].append(int(last))
 print(last)
 
-#%%
-print(ind)
-print(len(node))
-print(len(node_level))
+print(link_dict)
+
+try:
+    os.mkdir("./path")
+except:
+    pass
+
+fname = "./path/result_"
+fname += (str(datetime.now().date()).replace("-", "") 
+        + "_" 
+        + str(datetime.now().time()).replace(":", "")[:6]
+        + ".json")
+with open(fname, "w") as jsfile:
+    json.dump(link_dict, jsfile)
+# #%%
+# print(ind)
+# print(len(node))
+# print(len(node_level))
