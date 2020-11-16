@@ -1,175 +1,84 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title></title>
+		<title>Deploy Model</title>
 		<link rel="stylesheet" type="text/css" href="css/index.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
 	</head>
 	<body>
-		<div id="graph" class="graph"></div>
+		<nav class="navbar navbar-expand-lg navbar-light bg-dark">
+			<a class="navbar-brand text-light" href="#">Deploy Model</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			  	<span class="navbar-toggler-icon"></span>
+			</button>
+		  
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			  	<ul class="navbar-nav mr-auto">
+					<li class="nav-item active">
+				  	<a class="nav-link text-light" href="#">Home <span class="sr-only">(current)</span></a>
+				</li>
+				<!-- <li class="nav-item">
+				  	<a class="nav-link" href="#">Link</a>
+				</li> -->
+				<!-- <li class="nav-item dropdown">
+				  	<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						Dropdown
+				  	</a>
+				  	<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<a class="dropdown-item" href="#">Action</a>
+						<a class="dropdown-item" href="#">Another action</a>
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item" href="#">Something else here</a>
+				  	</div>
+				</li>
+				<li class="nav-item">
+				  	<a class="nav-link disabled" href="#">Disabled</a>
+				</li>
+				</ul>
+				<form class="form-inline my-2 my-lg-0">
+					<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+					<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+				</form> -->
+			</div>
+		</nav>
+		<div class="container">
+			<form style="margin:20px">
+				<div class="form-group row">
+				  	<label for="iter-times" class="col-sm-2 col-form-label">Iter Times</label>
+				  	<div class="col-sm-10">
+						<input type="text" class="form-control" id="iter-times" placeholder="100">
+				  	</div>
+				</div>
+				<div class="form-group row">
+					<label for="start-node" class="col-sm-2 col-form-label">Start Node ID</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" id="start-node" placeholder="0">
+					</div>
+				</div>
+				<div class="form-group row">
+					<label for="dest-node" class="col-sm-2 col-form-label">Dest Node ID</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" id="dest-node" placeholder="1">
+					</div>
+				</div>
+				<div class="form-group row">
+					<label for="config-loc" class="col-sm-2 col-form-label">Config Location</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" id="config-loc" placeholder="./config.txt">
+					</div>
+				</div>			
+				<button class="btn btn-dark" id="cal-path">Calculate Path</button>
+			</form>
+			<hr>
+			<button class="btn btn-dark" id="show-method" style="display: inline;">Show Graph</button>
+			<button class="btn btn-dark" id="close-method" style="display: inline">Close Graph</button>
+			<div id="graph" class="graph" style="display: none; margin: 20px"></div>
+		</div>
 	</body>
+	
 	<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
-	<script type="text/javascript">
-
-		///initial graph///
-		var NODES = new Array()
-
-		/////for canvas quality/////
-		var PIXEL_RATIO = (function () {
-		var ctx = document.createElement("canvas").getContext("2d"),
-			dpr = window.devicePixelRatio || 1,
-			bsr = ctx.webkitBackingStorePixelRatio ||
-				ctx.mozBackingStorePixelRatio ||
-				ctx.msBackingStorePixelRatio ||
-				ctx.oBackingStorePixelRatio ||
-				ctx.backingStorePixelRatio || 1
-
-		return dpr / bsr
-		})()
-		createHiDPICanvas = function(w, h, ratio) {
-			if (!ratio) { ratio = PIXEL_RATIO }
-			var can = document.createElement("canvas")
-			can.width = w * ratio
-			can.height = h * ratio
-			can.style.width = w + "px"
-			can.style.height = h + "px"
-			can.getContext("2d").setTransform(ratio, 0, 0, ratio, 0, 0)
-			var parent = document.getElementById("graph")
-			parent.appendChild(can)
-			return can
-		}
-		///////////////////////////////
-
-		///define globally cause i use multi function at first///
-		var WINDOWWIDTH = window.innerWidth,
-			WINDOWHEIGHT = window.innerHeight
-		// let canvas = createHiDPICanvas(WINDOWWIDTH, WINDOWHEIGHT)
-		let canvas = createHiDPICanvas(1632, 722)
-		var	CANVASWIDTH = parseInt(canvas.style.width, 10),
-			CANVASHEIGHT = parseInt(canvas.style.height, 10)
-		let ctx = canvas.getContext('2d')
-		ctx.font = '20px Georgia'
-		ctx.fillText('Linked Graph', 10, 20)
-
-		function getMatrix()
-		{
-			let url = 'http://127.0.0.1:5000/getAdjMatrix'
-			fetch(url)
-				.then((response) => {
-					return response.json()
-				}).then((matrix) => {
-					matrixToGraph(matrix)
-				})
-		}
-
-		function matrixToGraph(matrix)
-		{
-			createNodes(matrix)
-			createLines(matrix)
-		}
-
-		function createNodes(matrix)
-		{
-			// console.log(CANVASWIDTH, CANVASHEIGHT)
-			for(var i = 0; i < matrix[0].length; i++)
-			{
-				var nodeName = '(' + matrix[0][i].toString() + ')'
-				var nodeX = CANVASWIDTH * (9 / 11 * (Math.random() + 0.1))
-				var nodeY = CANVASHEIGHT * (9 / 11 * (Math.random() + 0.1))
-				ctx.fillText(nodeName, nodeX, nodeY)
-				// console.log(nodeName, nodeX, nodeY)
-				NODES.push({'nodeX': nodeX, 'nodeY': nodeY})
-			}
-		}
-
-		function createLines(matrix)
-		{
-			for(var i = 1; i < matrix.length; i++)
-			{
-				for(var j = 0; j < i; j++)
-				{
-					if(matrix[i][j] == 1)
-					{
-						ctx.beginPath()
-						ctx.moveTo(NODES[i - 1].nodeX + 17, NODES[i - 1].nodeY - 5)
-						ctx.lineTo(NODES[j].nodeX + 17, NODES[j].nodeY - 5)
-						ctx.stroke()
-					}
-				}
-			}
-		}
-		///initial graph///
-
-		///linked graph///
-		function getPathedGraph()
-		{
-			let json_file = 'result_20201116_032636.json' // can change later
-			let url = 'http://127.0.0.1:5000/getJsonLink/' + json_file
-			fetch(url)
-				.then((response) => {
-					return response.json()
-				}).then((linkAndPath) => {
-					// console.log(linkAndPath.path)
-					for(var i = 0; i < linkAndPath.path.length; i++)
-						generatePathedGraph(i, linkAndPath.link, linkAndPath.path[i])
-				})
-		}
-
-		function generatePathedGraph(number, link, path)
-		{
-			console.log(path)
-			let pathedGraphCanvas = createHiDPICanvas(1632, 722)
-			var	CANVASWIDTH = parseInt(pathedGraphCanvas.style.width, 10),
-				CANVASHEIGHT = parseInt(pathedGraphCanvas.style.height, 10)
-			let ctx = pathedGraphCanvas.getContext('2d')
-			ctx.font = '20px Georgia'
-			ctx.fillText('Path Method ' + number.toString(), 10, 20)
-			
-			/// draw remained link ///
-			// console.log(link)
-			ctx.strokeStyle = '#D0D0D0'
-			ctx.lineWidth = 1
-			for(var i = 0; i < link.length; i++)
-			{
-				var targetLink = link[i]
-				var startNode = targetLink[0],
-					destinationNode = targetLink[1]
-				ctx.beginPath()
-				ctx.moveTo(NODES[startNode].nodeX + 17, NODES[startNode].nodeY - 5)
-				ctx.lineTo(NODES[destinationNode].nodeX + 17, NODES[destinationNode].nodeY - 5)
-				ctx.stroke()
-			}
-
-			/// draw path ///
-			ctx.strokeStyle = '#FF0000'
-			ctx.fillStyle = '#0000C6'
-			ctx.font = '20px Georgia bold'
-			ctx.lineWidth = 3
-			for(var i = 0; i < path.link.length; i++)
-			{
-				var targetLink = link[path.link[i]]
-				// console.log(targetLink)
-				var startNode = targetLink[0],
-					destinationNode = targetLink[1]
-				ctx.beginPath()
-				ctx.moveTo(NODES[startNode].nodeX + 17, NODES[startNode].nodeY - 5)
-				ctx.lineTo(NODES[destinationNode].nodeX + 17, NODES[destinationNode].nodeY - 5)
-				ctx.stroke()
-				ctx.fillText(path.capacity[i], (NODES[startNode].nodeX + NODES[destinationNode].nodeX) / 2, (NODES[startNode].nodeY + NODES[destinationNode].nodeY) / 2)
-			}
-
-			/// draw nodes ///
-			ctx.fillStyle = '#000000'
-			ctx.font = '20px Georgia'
-			for(var i = 0; i < NODES.length; i++)
-			{
-				ctx.fillText('(' + i + ')', NODES[i].nodeX, NODES[i].nodeY)
-			}
-			
-		}
-
-		$(document).ready(function() {
-			getMatrix() // initial graph
-			getPathedGraph() // path added
-		})
-	</script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	<script type="text/javascript" src="js/main.js"></script>
+	<script type="text/javascript" src="js/canvas.js"></script>
 </html>

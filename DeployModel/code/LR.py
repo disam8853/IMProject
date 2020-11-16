@@ -1266,6 +1266,7 @@ class LR():
         lb = np.zeros((iteration_limit))
         zstar = np.zeros((iteration_limit))
         ub = np.zeros((iteration_limit))
+        result = ""
 
         for iter in range(iteration_limit):
             if primal_case == "2":  
@@ -1323,6 +1324,7 @@ class LR():
                 print("LB > Z*")
                 print("Stop at iteration: ", iter)
                 print("Gap: ", gap)
+                return "fail"
                 break
 
             elif iter == iteration_limit-1:
@@ -1351,7 +1353,8 @@ class LR():
                 ax.set_ylabel("Objective Value")
                 figure.tight_layout()
                 plt.savefig("primal"+primal_case+".png")
-                plt.show()
+                # plt.show()
+                return "success"
                 break
 
             # Adjust multipliers

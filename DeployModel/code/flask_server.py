@@ -1,8 +1,17 @@
 import flask
-from flask import jsonify
+from flask import jsonify, request
 from flask_cors import CORS
 import os
 import json
+from flask_main import *
+from show_path import *
+import random
+import math
+import numpy as np
+from Class import *
+from LR import LR
+import time
+import sys
 
 app = flask.Flask(__name__)
 CORS(app)
@@ -49,5 +58,19 @@ def get_json_link(json_file):
 			for key in keys:
 				methods.append(path[key])
 			return jsonify({'link': links, 'path': methods})
+
+@app.route("/CalPath", methods = ["POST"])
+def calculate_path():
+	data = request.json
+	try:
+		response = run_deploy(int(data["iter_times"]), int(data["startID"]), int(data["destID"]), data["config_loc"])
+		if response == "success":
+			show_path(data["config_loc"])
+			return response
+		else:
+			return response
+	except Exception as e:
+		print(e)
+		return "Something Wrong"
 
 app.run()

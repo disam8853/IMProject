@@ -10,40 +10,6 @@ import sys
 
 
 #%%
-inf = 99999999
-big = 1000  
-# t_start = time.clock()
-random.seed(1)
-# Read config file
-try:
-    config = open(sys.argv[4], "r")
-except:
-    config = open("my_config.txt", "r")
-lines = config.readlines()
-
-for i, line in enumerate(lines):
-    # print(line)
-    if i == 0:
-        USERPAIR_NUM = int(line)
-    elif i == 1:
-        traffic_list = [int(num) for num in line.split(',')]
-    elif i == 2:
-        pathnum_list = [int(num) for num in line.split(',')]
-    elif i == 3:
-        R_NUM = int(line)
-    elif i == 4:
-        O_NUM = int(line)
-    elif i == 5:
-        P_NUM = int(line)
-    elif i == 6:
-        Q_NUM = int(line)
-    else:
-        S_NUM = int(line)
-
-RO = 0.9
-DELAY_TOLER = 3
-
-#%%
 # Create nodes (including in-nodes and out-nodes of 5 types of nodes)
 def create_nodes(r_num: int, o_num: int, p_num: int, q_num: int, s_num: int):
     # The number of processor, observser, and LAN should be the same
@@ -170,69 +136,85 @@ def generate_comm_link(r_loc: LinkSet, o_loc: LinkSet, p_loc: LinkSet, q_loc: Li
     return comm_linkset, adjacency
 
 #%%
+def run_deploy(iter_times = 100, start_node = None, dest_node = None, config_loc = "./config.txt"):
 
-r_in, r_out, o_in, o_out, p_in, p_out, q_in, q_out, s_in, s_out = create_nodes(R_NUM, O_NUM, P_NUM, Q_NUM, S_NUM)
-r_loc, o_loc, p_loc, q_loc, s_loc, arti_nodes = create_location_list(r_in, r_out, o_in, o_out, p_in, p_out, q_in, q_out, s_in, s_out)
-comm_links, adjacency = generate_comm_link(r_loc, o_loc, p_loc, q_loc, s_loc)
-print("Number of links: ", comm_links.length())
+    inf = 99999999
+    big = 1000  
+    # t_start = time.clock()
+    random.seed(1)
+    # Read config file
+    config = open(config_loc, "r")
+    lines = config.readlines()
 
-#%%
-link_present = []
-for i in comm_links.links:
-    link_present.append([i.id, i.node1.id, i.node2.id])
-df = pd.DataFrame(np.array(link_present), columns=["id", "origin", "destination"])
-df.to_csv("link.csv", index = 0)
-# print(adjacency.get_matrix())
+    for i, line in enumerate(lines):
+        # print(line)
+        if i == 0:
+            USERPAIR_NUM = int(line)
+        elif i == 1:
+            traffic_list = [int(num) for num in line.split(',')]
+        elif i == 2:
+            pathnum_list = [int(num) for num in line.split(',')]
+        elif i == 3:
+            R_NUM = int(line)
+        elif i == 4:
+            O_NUM = int(line)
+        elif i == 5:
+            P_NUM = int(line)
+        elif i == 6:
+            Q_NUM = int(line)
+        else:
+            S_NUM = int(line)
 
-#%%
-print(r_loc.get_link(5).capacity_list)
-
-#%%
-df = pd.DataFrame(adjacency.get_matrix())
-df.to_csv("adjacency.csv", index = False)
-print(np.sum(adjacency.get_matrix()))
-
-#%%
-user_pairs = UserpairSet()
-for i in range(USERPAIR_NUM):
-    pair = UserPair(i, r_loc, adjacency, comm_links, arti_nodes, s_loc.length())
-    pair.traffic = traffic_list[i]
-    pair.path_number = pathnum_list[i]
-    if len(sys.argv) >= 4:
-        pair.origin = r_loc.get_link(int(sys.argv[2]))
-        pair.destination = r_loc.get_link(int(sys.argv[3]))
-    else:
-        pair.path_set = pair.generate_paths('dijk')
-    # pair.path_set = pair.generate_paths('dijk') if pair.path_number > 2 else pair.generate_paths_s('dijk')
-    user_pairs.add_pair(pair)
-
-#%% 
-
-LR = LR(r_loc, o_loc, p_loc, q_loc, s_loc, RO, DELAY_TOLER, comm_links, user_pairs)
-LR.initialize_decision_variables()
-LR.initialize_lr_multiplier()
-Z_star = LR.initialize()
-print("Z_star", Z_star)
-
-# # primal 1
-# for pair in user_pairs.pairs:
-#     pair.weighted_matrix = pair.adjacency.get_same_matrix()
-#     pair.path_set = pair.generate_paths('dijk')
-#     # print(pair.path_set)
-
-# if primal == 3
-# user_pairs.pairs.sort(key=lambda x: x.traffic*x.path_number, reverse=True)
-# for pair in user_pairs.pairs:
-#     # pair.weighted_matrix = pair.adjacency.get_same_matrix()
-#     pair.path_set = pair.generate_paths('dijk')
-#     # print(pair.path_set)
-try:
-    iter_limit = int(sys.argv[1])
-except:
-    iter_limit = 1000
-
-LR.lagrangian_relaxation(Z_star, 0, iter_limit)
-# LR.lagrangian_relaxation(Z_star, t_start)
+    RO = 0.9
+    DELAY_TOLER = 3
 
 
-# %%
+    r_in, r_out, o_in, o_out, p_in, p_out, q_in, q_out, s_in, s_out = create_nodes(R_NUM, O_NUM, P_NUM, Q_NUM, S_NUM)
+    r_loc, o_loc, p_loc, q_loc, s_loc, arti_nodes = create_location_list(r_in, r_out, o_in, o_out, p_in, p_out, q_in, q_out, s_in, s_out)
+    comm_links, adjacency = generate_comm_link(r_loc, o_loc, p_loc, q_loc, s_loc)
+    print("Number of links: ", comm_links.length())
+
+    #%%
+    link_present = []
+    for i in comm_links.links:
+        link_present.append([i.id, i.node1.id, i.node2.id])
+    df = pd.DataFrame(np.array(link_present), columns=["id", "origin", "destination"])
+    df.to_csv("link.csv", index = 0)
+    # print(adjacency.get_matrix())
+
+    #%%
+    print(r_loc.get_link(5).capacity_list)
+
+    #%%
+    df = pd.DataFrame(adjacency.get_matrix())
+    df.to_csv("adjacency.csv", index = False)
+    print(np.sum(adjacency.get_matrix()))
+
+    #%%
+    user_pairs = UserpairSet()
+    for i in range(USERPAIR_NUM):
+        pair = UserPair(i, r_loc, adjacency, comm_links, arti_nodes, s_loc.length())
+        pair.traffic = traffic_list[i]
+        pair.path_number = pathnum_list[i]
+        if start_node != None and dest_node != None:
+            pair.origin = r_loc.get_link(start_node)
+            pair.destination = r_loc.get_link(dest_node)
+        else:
+            pair.path_set = pair.generate_paths('dijk')
+        # pair.path_set = pair.generate_paths('dijk') if pair.path_number > 2 else pair.generate_paths_s('dijk')
+        user_pairs.add_pair(pair)
+
+    #%% 
+
+    __LR = LR(r_loc, o_loc, p_loc, q_loc, s_loc, RO, DELAY_TOLER, comm_links, user_pairs)
+    __LR.initialize_decision_variables()
+    __LR.initialize_lr_multiplier()
+    Z_star = __LR.initialize()
+    print("Z_star", Z_star)
+    iter_limit = iter_times
+
+    result = __LR.lagrangian_relaxation(Z_star, 0, iter_limit)
+    return result
+
+if __name__ == "__main__":
+    run_deploy(int(sys.argv[1]), int(sys.argv[2]), int(sys.argv[3]), sys.argv[4])
