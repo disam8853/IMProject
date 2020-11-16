@@ -73,7 +73,7 @@ var NODES = new Array()
 		{
 			for(var i = 1; i < matrix.length; i++)
 			{
-				for(var j = 0; j < i; j++)
+				for(var j = 0; j < matrix.length; j++)
 				{
 					if(matrix[i][j] == 1)
 					{
@@ -105,7 +105,7 @@ var NODES = new Array()
 		function generatePathedGraph(number, link, path)
 		{
 			console.log(path)
-			let pathedGraphCanvas = createHiDPICanvas(1632,722)
+			let pathedGraphCanvas = createHiDPICanvas(1632, 722)
 			var	CANVASWIDTH = parseInt(pathedGraphCanvas.style.width, 10),
 				CANVASHEIGHT = parseInt(pathedGraphCanvas.style.height, 10)
 			let ctx = pathedGraphCanvas.getContext('2d')
@@ -132,12 +132,11 @@ var NODES = new Array()
 			ctx.fillStyle = '#0000C6'
 			ctx.font = '20px Georgia bold'
 			ctx.lineWidth = 3
-			for(var i = 0; i < path.link.length; i++)
+			for(var i = 0; i < path.link.length - 1; i++)
 			{
-				var targetLink = link[path.link[i]]
 				// console.log(targetLink)
-				var startNode = targetLink[0],
-					destinationNode = targetLink[1]
+				var startNode = path.link[i],
+					destinationNode = path.link[i + 1]
 				ctx.beginPath()
 				ctx.moveTo(NODES[startNode].nodeX + 17, NODES[startNode].nodeY - 5)
 				ctx.lineTo(NODES[destinationNode].nodeX + 17, NODES[destinationNode].nodeY - 5)
