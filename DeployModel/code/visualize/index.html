@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/index.css">
+	</head>
+	<body>
+		<div id="graph" class="graph"></div>
+	</body>
+	<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+	<script type="text/javascript">
+		var NODES = new Array()
+
+		/////for canvas quality/////
+		var PIXEL_RATIO = (function () {
+		var ctx = document.createElement("canvas").getContext("2d"),
+			dpr = window.devicePixelRatio || 1,
+			bsr = ctx.webkitBackingStorePixelRatio ||
+				ctx.mozBackingStorePixelRatio ||
+				ctx.msBackingStorePixelRatio ||
+				ctx.oBackingStorePixelRatio ||
+				ctx.backingStorePixelRatio || 1
+
+		return dpr / bsr
+		})()
+		createHiDPICanvas = function(w, h, ratio) {
+			if (!ratio) { ratio = PIXEL_RATIO }
+			var can = document.createElement("canvas")
+			can.width = w * ratio
+			can.height = h * ratio
+			can.style.width = w + "px"
+			can.style.height = h + "px"
+			can.getContext("2d").setTransform(ratio, 0, 0, ratio, 0, 0)
+			var parent = document.getElementById("graph")
+			parent.appendChild(can)
+			return can
+		}
+		///////////////////////////////
+
+		var WINDOWWIDTH = window.innerWidth,
+			WINDOWHEIGHT = window.innerHeight
+		let canvas = createHiDPICanvas(WINDOWWIDTH, WINDOWHEIGHT)
+		var	CANVASWIDTH = parseInt(canvas.style.width, 10),
+			CANVASHEIGHT = parseInt(canvas.style.height, 10)
+		let ctx = canvas.getContext('2d')
+		ctx.font = '20px Georgia'
+
+		function getMatrix()
+		{
+			let url = 'http://127.0.0.1:5000/getAdjMatrix'
+			fetch(url)
+				.then((response) => {
+					return response.json()
+				}).then((matrix) => {
+					matrixToGraph(matrix)
+				})
+		}
+
+		function matrixToGraph(matrix)
+		{
+			createNodes(matrix)
+			createLines(matrix)
+		}
+
+		function createNodes(matrix)
+		{
+			console.log(CANVASWIDTH, CANVASHEIGHT)
+			for(var i = 0; i < matrix.length; i++)
+			{
+				var nodeName = '(' + i.toString() + ')'
+				var nodeX = CANVASWIDTH * (9 / 11 * (Math.random() + 0.1))
+				var nodeY = CANVASHEIGHT * (9 / 11 * (Math.random() + 0.1))
+				ctx.fillText(nodeName, nodeX, nodeY)
+				console.log(nodeName, nodeX, nodeY)
+				NODES.push({'nodeX': nodeX, 'nodeY': nodeY})
+			}
+		}
+
+		function createLines(matrix)
+		{
+			for(var i = 0; i < matrix.length; i++)
+			{
+				for(var j = 0; j < i; j++)
+				{
+					if(matrix[i][j] == 1)
+					{
+						ctx.beginPath()
+						ctx.moveTo(NODES[i].nodeX, NODES[i].nodeY)
+						ctx.lineTo(NODES[j].nodeX, NODES[j].nodeY)
+						ctx.stroke()
+					}
+				}
+			}
+		}
+
+		$(document).ready(function() {
+			getMatrix()
+		})
+	</script>
+</html>
