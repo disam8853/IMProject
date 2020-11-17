@@ -1,5 +1,21 @@
 $("#show-method").click(function(){
     $("#graph")[0].style.display = "block"
+    console.log($("#method-text"))
+    var setting = {
+        "async": true,
+        "crossDomain": true,
+        "url": "http://127.0.0.1:5000/showPath",
+        "method": "POST",
+        "headers": {
+        "content-type": "application/json",
+        "cache-control": "no-cache",
+        "postman-token": "e81e0d1c-cde1-b166-2025-1d8726e91517"
+        },
+        "processData": false
+    };
+    $.ajax(setting).done(function (response) {
+        $("#method-text")[0].innerHTML = response
+    })
 })
 
 $("#close-method").click(function(){
@@ -7,6 +23,7 @@ $("#close-method").click(function(){
 })
 
 $("#cal-path").click(function(){
+    alert("jizz")
     var setting = {
         "async": true,
         "crossDomain": true,
@@ -26,8 +43,10 @@ $("#cal-path").click(function(){
         "config_loc": $("#config-loc")[0].value
     }
     setting["data"] = JSON.stringify(data)
-
+    
+    
     $.ajax(setting).done(function (response) {
         alert(response)
+        $("#method-text")[0].innerHTML = response
     })
 })

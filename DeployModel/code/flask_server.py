@@ -66,11 +66,26 @@ def calculate_path():
 		response = run_deploy(int(data["iter_times"]), int(data["startID"]), int(data["destID"]), data["config_loc"])
 		if response == "success":
 			show_path(data["config_loc"])
+			print(response)
 			return response
 		else:
-			return response
+			return "failed"
 	except Exception as e:
 		print(e)
 		return "Something Wrong"
 
-app.run()
+@app.route("/showPath", methods = ["POST"])
+def showPath():
+	
+	with open("./path/result.json") as jsfile:
+		data = json.load(jsfile)
+	response = ""
+	for key in data.keys():
+		response += key + ":<br>"
+		for i in range(len(data[key]['capacity'])):
+			response += str(data[key]["link"][i]) + "&nbsp=(" + str(data[key]["capacity"][i]) + ")=>&nbsp"
+		response += str(data[key]["link"][-1]) + "<br><br>"
+	return response
+
+if __name__ == "__main__":
+	app.run()
