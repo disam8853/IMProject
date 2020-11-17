@@ -110,7 +110,7 @@ var NODES = new Array()
 				CANVASHEIGHT = parseInt(pathedGraphCanvas.style.height, 10)
 			let ctx = pathedGraphCanvas.getContext('2d')
 			ctx.font = '20px Georgia'
-			ctx.fillText('Path Method ' + number.toString(), 10, 20)
+			ctx.fillText('Path ' + number.toString(), 10, 20)
 			
 			/// draw remained link ///
 			// console.log(link)
