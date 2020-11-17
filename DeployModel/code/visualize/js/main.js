@@ -167,6 +167,9 @@ $("#close-method").click(function(){
 })
 
 $("#cal-path").click(function(){
+    $.blockUI({
+        message: '<h1>Calculating...</h1>' 
+    })
     var setting = {
         "async": true,
         "crossDomain": true,
@@ -186,14 +189,25 @@ $("#cal-path").click(function(){
         "config_loc": $("#config-loc")[0].value
     }
     setting["data"] = JSON.stringify(data)
-
+    console.log(setting)
+    
     $.ajax(setting).done(function (response) {
-        alert(response)
+        $.unblockUI();
+        if(response == "Something Wrong" || response == "failed")
+        {    
+            alert(response)
+        }
+        else
+        {
+            alert("success")
+            $("#method-text")[0].innerHTML = response
+        }
     })
 })
 
 
 $(document).ready(function() {
-    getMatrix() // initial graph
-    getPathedGraph() // path added
+    alert("hello")
+    // getMatrix() // initial graph
+    // getPathedGraph() // path added
 })

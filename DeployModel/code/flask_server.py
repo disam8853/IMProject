@@ -61,13 +61,21 @@ def get_json_link(json_file):
 
 @app.route("/CalPath", methods = ["POST"])
 def calculate_path():
+	print("jizzzz")
 	data = request.json
 	try:
 		response = run_deploy(int(data["iter_times"]), int(data["startID"]), int(data["destID"]), data["config_loc"])
 		if response == "success":
 			show_path(data["config_loc"])
-			print(response)
-			return response
+			with open("./path/result.json", "r") as jsfile:
+				data = json.load(jsfile)
+			output = ""
+			for key in data.keys():
+				output += key + ":<br>"
+				for i in range(len(data[key]["capacity"])):
+					output += str(data[key]["link"][i]) + "&nbsp;=(" + str(data[key]["capacity"][i]) + ")=>&nbsp;"
+				output += str(data[key]["link"][-1]) + "<br><br>"
+			return output
 		else:
 			return "failed"
 	except Exception as e:
