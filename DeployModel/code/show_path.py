@@ -3,6 +3,7 @@ import numpy as np
 import pandas as pd
 import json
 import os
+import sys
 from datetime import datetime
 
 def JudgeStyle(data, node_style):
@@ -127,7 +128,7 @@ def show_path(config_loc):
     with open("./path/result.json", "w") as jsfile:
         json.dump(link_dict, jsfile)
 if __name__ == "__main__":
-    show_path("./my_config.txt")
+    show_path(sys.argv[1])
 # #%%
 # print(ind)
 # print(len(node))
