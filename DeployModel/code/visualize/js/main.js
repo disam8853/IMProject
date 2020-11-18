@@ -209,7 +209,11 @@ $('#cal-path').click(() => {
       if (res == 'Something Wrong' || res == 'failed') {
         throw new Error(res)
       }
-      $('#method-text')[0].innerHTML = res
+      handleCalPath(res)
     })
     .catch((err) => alert(err))
 })
+
+handleCalPath = (res) => {
+  $('#method-text')[0].innerHTML = res
+}
