@@ -275,11 +275,7 @@ handleCalPath = (res) => {
 
 showGraphById = (id) => {
   $('#graph').removeClass('d-none')
-  $('#graph canvas').each(function (idx) {
-    $(this).addClass('d-none')
-    window.scrollTo(0, document.body.scrollHeight)
-    if (idx === id) {
-      $(this).removeClass('d-none')
-    }
-  })
+  $('#graph canvas').hide()
+  $($('#graph canvas')[id]).fadeIn()
+  window.scrollTo(0, document.body.scrollHeight)
 }
