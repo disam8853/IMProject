@@ -264,7 +264,7 @@ handleCalPath = (res) => {
   const ary = res.split('<br><br>')
   ary.pop()
   for (const x of ary) {
-    $('#method-text').append(`<p class="method-item">${x}`)
+    $('#method-text').append(`<p class="method-item btn btn-outline-dark">${x}`)
   }
 
   $('.method-item').click(function () {
