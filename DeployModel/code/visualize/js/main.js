@@ -38,12 +38,14 @@ var WINDOWWIDTH = window.innerWidth,
 
 function getMatrix() {
   let url = 'http://127.0.0.1:5000/getAdjMatrix'
-  fetch(url)
-    .then((response) => {
-      return response.json()
-    })
+  return fetch(url)
+    .then((response) => response.json())
     .then((matrix) => {
       matrixToGraph(matrix)
+    })
+    .catch((err) => {
+      console.log(err)
+      throw err
     })
 }
 
@@ -88,14 +90,16 @@ function createLines(matrix, CANVASWIDTH, CANVASHEIGHT, ctx) {
 function getPathedGraph() {
   let json_file = 'result.json' // can change later
   let url = 'http://127.0.0.1:5000/getJsonLink/' + json_file
-  fetch(url)
-    .then((response) => {
-      return response.json()
-    })
+  return fetch(url)
+    .then((response) => response.json())
     .then((linkAndPath) => {
       // console.log(linkAndPath.path)
       for (var i = 0; i < linkAndPath.path.length; i++)
         generatePathedGraph(i, linkAndPath.link, linkAndPath.path[i])
+    })
+    .catch((err) => {
+      console.log(err)
+      throw err
     })
 }
 
@@ -156,9 +160,13 @@ function generatePathedGraph(number, link, path) {
   }
 }
 
-$('#show-method').click(function () {
-  getMatrix() // initial graph
-  getPathedGraph() // path added
+$('#show-method').click(async () => {
+  try {
+    await getMatrix() // initial graph
+    getPathedGraph() // path added
+  } catch (err) {
+    alert(err.message)
+  }
 })
 
 $('#close-method').click(function () {
