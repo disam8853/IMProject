@@ -1,3 +1,7 @@
+html {
+  scroll-behavior: smooth;
+}
+
 .graph {
   max-width: 100vw;
   height: 100vh;
@@ -17,4 +21,8 @@
   font-size: 50vmin;
   transform: translateY(-50%);
   color: coral;
+}
+
+.method-item {
+  cursor: pointer;
 }
