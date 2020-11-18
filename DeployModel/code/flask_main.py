@@ -211,7 +211,6 @@ def run_deploy(iter_times=100, start_node=None, dest_node=None, config_loc="./co
     # print(adjacency.get_matrix())
 
     # %%
-    print(r_loc.get_link(5).capacity_list)
 
     # %%
     df = pd.DataFrame(adjacency.get_matrix())
