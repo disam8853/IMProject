@@ -178,7 +178,7 @@ function generatePathedGraph(number, link, path) {
 reset = () => {
   $('#total-graph').html('')
   $('#method-text').html('')
-  $('#graph').html('')
+  $('#graph').html('').addClass('d-none')
 }
 
 $(document).on('keypress', function (e) {
