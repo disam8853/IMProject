@@ -14,7 +14,8 @@ var PIXEL_RATIO = (function () {
 
   return dpr / bsr
 })()
-createHiDPICanvas = function (w, h, ratio) {
+
+createHiDPICanvas = function (w, h, el_id, ratio) {
   if (!ratio) {
     ratio = PIXEL_RATIO
   }
@@ -24,7 +25,7 @@ createHiDPICanvas = function (w, h, ratio) {
   can.style.width = w + 'px'
   can.style.height = h + 'px'
   can.getContext('2d').setTransform(ratio, 0, 0, ratio, 0, 0)
-  var parent = document.getElementById('graph')
+  var parent = document.getElementById(el_id)
   parent.appendChild(can)
   return can
 }
@@ -45,13 +46,12 @@ function getMatrix() {
       matrixToGraph(matrix)
     })
     .catch((err) => {
-      console.log(err)
       throw err
     })
 }
 
 function matrixToGraph(matrix) {
-  let canvas = createHiDPICanvas(800, 600)
+  let canvas = createHiDPICanvas(800, 600, 'total-graph')
   var CANVASWIDTH = parseInt(canvas.style.width, 10),
     CANVASHEIGHT = parseInt(canvas.style.height, 10)
   let ctx = canvas.getContext('2d')
@@ -99,19 +99,18 @@ function getPathedGraph() {
         generatePathedGraph(i, linkAndPath.link, linkAndPath.path[i])
     })
     .catch((err) => {
-      console.log(err)
       throw err
     })
 }
 
 function generatePathedGraph(number, link, path) {
   console.log(path)
-  let pathedGraphCanvas = createHiDPICanvas(1632, 722)
+  let pathedGraphCanvas = createHiDPICanvas(800, 600, 'graph')
   var CANVASWIDTH = parseInt(pathedGraphCanvas.style.width, 10),
     CANVASHEIGHT = parseInt(pathedGraphCanvas.style.height, 10)
   let ctx = pathedGraphCanvas.getContext('2d')
   ctx.font = '20px Georgia'
-  ctx.fillText('Path ' + number.toString(), 10, 20)
+  ctx.fillText('Method ' + number.toString(), 10, 20)
 
   /// draw remained link ///
   // console.log(link)
@@ -161,22 +160,39 @@ function generatePathedGraph(number, link, path) {
   }
 }
 
-$('#show-method').click(async () => {
-  try {
-    await getMatrix() // initial graph
-    getPathedGraph() // path added
-  } catch (err) {
-    alert(err.message)
+// $('#show-method').click(async () => {
+//   try {
+//     await getMatrix() // initial graph
+//     getPathedGraph() // path added
+//   } catch (err) {
+//     alert(err.message)
+//   }
+// })
+
+// $('#close-method').click(function () {
+//   for (var i = 0; i < $('#graph').children().length; i++)
+//     $('#graph').children().detach()
+//   NODES = new Array()
+// })
+
+reset = () => {
+  $('#total-graph').html('')
+  $('#method-text').html('')
+  $('#graph').html('')
+}
+
+$(document).on('keypress', function (e) {
+  // press enter
+  if (e.which == 13) {
+    doCalPath()
   }
 })
 
-$('#close-method').click(function () {
-  for (var i = 0; i < $('#graph').children().length; i++)
-    $('#graph').children().detach()
-  NODES = new Array()
-})
+$('#cal-path').click(() => doCalPath())
 
-$('#cal-path').click(() => {
+doCalPath = async () => {
+  reset()
+
   $.blockUI({
     message: '<i class="fas fa-spinner"></i>',
     css: {
@@ -195,7 +211,25 @@ $('#cal-path').click(() => {
     config_loc: $('#config-loc')[0].value,
   }
 
-  fetch('http://127.0.0.1:5000/CalPath', {
+  try {
+    await calPath()
+    await showPath()
+  } catch (err) {
+    alert(err)
+  }
+
+  $.unblockUI()
+}
+
+calPath = () => {
+  data = {
+    iter_times: $('#iter-times')[0].value,
+    startID: $('#start-node')[0].value,
+    destID: $('#dest-node')[0].value,
+    config_loc: $('#config-loc')[0].value,
+  }
+
+  return fetch('http://127.0.0.1:5000/CalPath', {
     method: 'POST',
     mode: 'cors',
     headers: {
@@ -205,15 +239,47 @@ $('#cal-path').click(() => {
   })
     .then((res) => res.text())
     .then((res) => {
-      $.unblockUI()
       if (res == 'Something Wrong' || res == 'failed') {
         throw new Error(res)
       }
       handleCalPath(res)
     })
-    .catch((err) => alert(err))
-})
+    .catch((err) => {
+      throw err
+    })
+}
+
+showPath = () => {
+  return Promise.all([getMatrix(), getPathedGraph()])
+    .then((res) => {
+      console.log(res)
+    })
+    .catch((err) => {
+      throw err
+    })
+}
 
 handleCalPath = (res) => {
-  $('#method-text')[0].innerHTML = res
+  //$('#method-text')[0].innerHTML = res
+  const ary = res.split('<br><br>')
+  ary.pop()
+  for (const x of ary) {
+    $('#method-text').append(`<p class="method-item">${x}`)
+  }
+
+  $('.method-item').click(function () {
+    const id = $('.method-item').index(this)
+    showGraphById(id)
+  })
+}
+
+showGraphById = (id) => {
+  $('#graph').removeClass('d-none')
+  $('#graph canvas').each(function (idx) {
+    $(this).addClass('d-none')
+    window.scrollTo(0, document.body.scrollHeight)
+    if (idx === id) {
+      $(this).removeClass('d-none')
+    }
+  })
 }

@@ -18,3 +18,7 @@
   transform: translateY(-50%);
   color: coral;
 }
+
+.method-item {
+  cursor: pointer;
+}
