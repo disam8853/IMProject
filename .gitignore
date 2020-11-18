@@ -1,1 +1,5 @@
 __pycache__
+result_*
+result.json
+*.csv
+output.txt

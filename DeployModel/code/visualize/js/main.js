@@ -41,6 +41,7 @@ function getMatrix() {
   return fetch(url)
     .then((response) => response.json())
     .then((matrix) => {
+      console.log(matrix)
       matrixToGraph(matrix)
     })
     .catch((err) => {
@@ -175,7 +176,7 @@ $('#close-method').click(function () {
   NODES = new Array()
 })
 
-$('#cal-path').click(function () {
+$('#cal-path').click(() => {
   $.blockUI({
     message: '<i class="fas fa-spinner"></i>',
     css: {
@@ -186,36 +187,31 @@ $('#cal-path').click(function () {
       transform: 'translate(-50%, -50%)',
     },
   })
-  var setting = {
-    async: true,
-    crossDomain: true,
-    url: 'http://127.0.0.1:5000/CalPath',
-    method: 'POST',
-    headers: {
-      'content-type': 'application/json',
-      'cache-control': 'no-cache',
-      'postman-token': 'e81e0d1c-cde1-b166-2025-1d8726e91517',
-    },
-    processData: false,
-  }
+
   data = {
     iter_times: $('#iter-times')[0].value,
     startID: $('#start-node')[0].value,
     destID: $('#dest-node')[0].value,
     config_loc: $('#config-loc')[0].value,
   }
-  setting['data'] = JSON.stringify(data)
-  console.log(setting)
 
-  $.ajax(setting).done(function (response) {
-    $.unblockUI()
-    if (response == 'Something Wrong' || response == 'failed') {
-      alert(response)
-    } else {
-      alert('success')
-      $('#method-text')[0].innerHTML = response
-    }
+  fetch('http://127.0.0.1:5000/CalPath', {
+    method: 'POST',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
   })
+    .then((res) => res.text())
+    .then((res) => {
+      $.unblockUI()
+      if (res == 'Something Wrong' || res == 'failed') {
+        throw new Error(res)
+      }
+      $('#method-text')[0].innerHTML = res
+    })
+    .catch((err) => alert(err))
 })
 
 $(document).ready(function () {
