@@ -213,9 +213,3 @@ $('#cal-path').click(() => {
     })
     .catch((err) => alert(err))
 })
-
-$(document).ready(function () {
-  alert('hello')
-  // getMatrix() // initial graph
-  // getPathedGraph() // path added
-})
