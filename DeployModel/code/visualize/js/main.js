@@ -237,11 +237,12 @@ calPath = () => {
     },
     body: JSON.stringify(data),
   })
-    .then((res) => res.text())
     .then((res) => {
-      if (res == 'Something Wrong' || res == 'failed') {
-        throw new Error(res)
-      }
+      if (res.status !== 200) throw new Error('Call CalPath error')
+      else return res.json()
+    })
+    .then((res) => {
+      console.log(res)
       handleCalPath(res)
     })
     .catch((err) => {
@@ -260,16 +261,26 @@ showPath = () => {
 }
 
 handleCalPath = (res) => {
-  //$('#method-text')[0].innerHTML = res
-  const ary = res.split('<br><br>')
-  ary.pop()
-  for (const x of ary) {
-    $('#method-text').append(`<p class="method-item btn btn-outline-dark">${x}`)
+  for (const x of res.data) {
+    $('#method-text').append(
+      `<p class="method-item btn btn-outline-dark mr-3">${x.name}</p>`,
+    )
+
+    let txt = ''
+    for (const y of x.paths) {
+      txt += y.capacity === '' ? y.link : `${y.link} =(${y.capacity})> `
+    }
+    $('#path-info-block').append(`<p class="m-0 path-info">${txt}</p>`)
+    $('#path-info-block p').hide()
   }
 
   $('.method-item').click(function () {
     const id = $('.method-item').index(this)
+    $('#path-info-block p').hide()
+    $($('#path-info-block p')[id]).show()
     showGraphById(id)
+    location.hash = '#'
+    location.hash = '#path-info-block'
   })
 }
 
@@ -277,5 +288,4 @@ showGraphById = (id) => {
   $('#graph').removeClass('d-none')
   $('#graph canvas').hide()
   $($('#graph canvas')[id]).fadeIn()
-  window.scrollTo(0, document.body.scrollHeight)
 }

@@ -1,5 +1,5 @@
 import flask
-from flask import jsonify, request
+from flask import jsonify, request, make_response
 from flask_cors import CORS
 import os
 import json
@@ -74,19 +74,27 @@ def calculate_path():
             show_path(data["config_loc"])
             with open("./path/result.json", "r") as jsfile:
                 data = json.load(jsfile)
-            output = ""
+            # output = ""
+            output = {'data': []}
             for key in data.keys():
-                output += key + ":<br>"
+                # output += key + ":<br>"
+                output['data'].append({"name": key, 'paths': []})
                 for i in range(len(data[key]["capacity"])):
-                    output += str(data[key]["link"][i]) + "&nbsp;=(" + \
-                        str(data[key]["capacity"][i]) + ")=>&nbsp;"
-                output += str(data[key]["link"][-1]) + "<br><br>"
-            return output
+                    # output += str(data[key]["link"][i]) + "&nbsp;=(" + \
+                    #    str(data[key]["capacity"][i]) + ")=>&nbsp;"
+                    output['data'][-1]['paths'].append(
+                        {'link': str(data[key]["link"][i]), 'capacity': str(data[key]["capacity"][i])})
+                # output += str(data[key]["link"][-1]) + "<br><br>"
+                output['data'][-1]['paths'].append(
+                    {'link': str(data[key]["link"][-1]), 'capacity': ''})
+            # return output
+            print(output)
+            return make_response(jsonify(output), 200)
         else:
-            return "failed"
+            return make_response(jsonify({"error": "failed"}), 500)
     except Exception as e:
         print(e)
-        return "Something Wrong"
+        return make_response(jsonify({"error": "Something Wrong"}), 500)
 
 
 @app.route("/showPath", methods=["POST"])
