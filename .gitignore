@@ -3,3 +3,4 @@ result_*
 result.json
 *.csv
 output.txt
+.DS_Store

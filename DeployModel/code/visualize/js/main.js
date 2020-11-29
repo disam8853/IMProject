@@ -110,7 +110,7 @@ function generatePathedGraph(number, link, path) {
     CANVASHEIGHT = parseInt(pathedGraphCanvas.style.height, 10)
   let ctx = pathedGraphCanvas.getContext('2d')
   ctx.font = '20px Georgia'
-  ctx.fillText('Method ' + number.toString(), 10, 20)
+  ctx.fillText('Path ' + number.toString(), 10, 20)
 
   /// draw remained link ///
   // console.log(link)
@@ -262,8 +262,8 @@ showPath = () => {
 
 handleCalPath = (res) => {
   for (const x of res.data) {
-    $('#method-text').append(
-      `<p class="method-item btn btn-outline-dark mr-3">${x.name}</p>`,
+    $('#path-text').append(
+      `<p class="path-item btn btn-outline-dark mr-3">${x.name}</p>`,
     )
 
     let txt = ''
@@ -274,8 +274,8 @@ handleCalPath = (res) => {
     $('#path-info-block p').hide()
   }
 
-  $('.method-item').click(function () {
-    const id = $('.method-item').index(this)
+  $('.path-item').click(function () {
+    const id = $('.path-item').index(this)
     $('#path-info-block p').hide()
     $($('#path-info-block p')[id]).show()
     showGraphById(id)

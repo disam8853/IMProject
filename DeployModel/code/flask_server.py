@@ -76,9 +76,12 @@ def calculate_path():
                 data = json.load(jsfile)
             # output = ""
             output = {'data': []}
+            cnt = 0
             for key in data.keys():
+                cnt += 1
                 # output += key + ":<br>"
-                output['data'].append({"name": key, 'paths': []})
+                output['data'].append(
+                    {"name": 'Path ' + str(cnt), 'paths': []})
                 for i in range(len(data[key]["capacity"])):
                     # output += str(data[key]["link"][i]) + "&nbsp;=(" + \
                     #    str(data[key]["capacity"][i]) + ")=>&nbsp;"
