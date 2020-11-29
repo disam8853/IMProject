@@ -221,12 +221,23 @@ doCalPath = async () => {
   $.unblockUI()
 }
 
-calPath = () => {
-  data = {
-    iter_times: $('#iter-times')[0].value,
-    startID: $('#start-node')[0].value,
-    destID: $('#dest-node')[0].value,
-    config_loc: $('#config-loc')[0].value,
+calPath = async () => {
+  const data = {
+    iter_times: parseInt($('#iter-times').val()),
+    startID: parseInt($('#start-node').val()),
+    destID: parseInt($('#dest-node').val()),
+    nodeR: parseInt($('#NodeR').val()),
+    nodeO: parseInt($('#NodeO').val()),
+    nodeP: parseInt($('#NodeP').val()),
+    nodeQ: parseInt($('#NodeQ').val()),
+    nodeS: parseInt($('#NodeS').val()),
+  }
+
+  try {
+    data['traffic'] = await getListInputVal(1)
+    data['pathCount'] = await getListInputVal(2)
+  } catch (err) {
+    throw err
   }
 
   return fetch('http://127.0.0.1:5000/CalPath', {
@@ -248,6 +259,14 @@ calPath = () => {
     .catch((err) => {
       throw err
     })
+}
+
+getListInputVal = async (id) => {
+  let data = []
+  await $(`.N-ints-${id}`).each(function () {
+    data.push(parseInt($(this).val()) || 0)
+  })
+  return data
 }
 
 showPath = () => {
@@ -288,4 +307,23 @@ showGraphById = (id) => {
   $('#graph').removeClass('d-none')
   $('#graph canvas').hide()
   $($('#graph canvas')[id]).fadeIn()
+}
+
+$(document).ready(() => {
+  $('#int-N').on('input', function () {
+    const num = $(this).val()
+    $($('.N-ints-block')[0]).html(add_str(1, num))
+    $($('.N-ints-block')[1]).html(add_str(2, num))
+  })
+})
+
+add_str = (id, num) => {
+  let str = `<label for="N-ints-1" class="col-sm-2 col-form-label">${
+    id === 1 ? 'Traffic' : 'Path Count'
+  }</label><div class="col-sm-10"><div class="row">`
+  for (let i = 0; i < num; i++) {
+    str += `<div class="col-sm"><input type="number" class="form-control N-ints-${id}" /></div>`
+  }
+  str += '</div></div>'
+  return str
 }
