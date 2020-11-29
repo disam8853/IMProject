@@ -204,12 +204,12 @@ doCalPath = async () => {
     },
   })
 
-  data = {
-    iter_times: $('#iter-times')[0].value,
-    startID: $('#start-node')[0].value,
-    destID: $('#dest-node')[0].value,
-    config_loc: $('#config-loc')[0].value,
-  }
+  // data = {
+  //   iter_times: $('#iter-times')[0].value,
+  //   startID: $('#start-node')[0].value,
+  //   destID: $('#dest-node')[0].value,
+  //   config_loc: $('#config-loc')[0].value,
+  // }
 
   try {
     await calPath()
@@ -226,6 +226,7 @@ calPath = async () => {
     iter_times: parseInt($('#iter-times').val()),
     startID: parseInt($('#start-node').val()),
     destID: parseInt($('#dest-node').val()),
+    userCount: parseInt($('#int-N').val()),
     nodeR: parseInt($('#NodeR').val()),
     nodeO: parseInt($('#NodeO').val()),
     nodeP: parseInt($('#NodeP').val()),

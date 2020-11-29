@@ -161,34 +161,50 @@ def generate_comm_link(r_loc: LinkSet, o_loc: LinkSet, p_loc: LinkSet, q_loc: Li
 # %%
 
 
-def run_deploy(iter_times=100, start_node=None, dest_node=None, config_loc="./config.txt"):
+def run_deploy(config_loc=None, req = None):
 
     inf = 99999999
     big = 1000
+
+    iter_times = req["iter_times"]
+    start_node = req["startID"]
+    dest_node = req["destID"]
     # t_start = time.clock()
     random.seed(1)
     # Read config file
-    config = open(config_loc, "r")
-    lines = config.readlines()
+    if config_loc != None:
+        config = open(config_loc, "r")
+        lines = config.readlines()
+        for i, line in enumerate(lines):
+            # print(line)
+            if i == 0:
+                USERPAIR_NUM = int(line)
+            elif i == 1:
+                traffic_list = [int(num) for num in line.split(',')]
+            elif i == 2:
+                pathnum_list = [int(num) for num in line.split(',')]
+            elif i == 3:
+                R_NUM = int(line)
+            elif i == 4:
+                O_NUM = int(line)
+            elif i == 5:
+                P_NUM = int(line)
+            elif i == 6:
+                Q_NUM = int(line)
+            else:
+                S_NUM = int(line)
+    elif req != None:
+        USERPAIR_NUM = req["userCount"]
+        traffic_list = req["traffic"]
+        pathnum_list = req["pathCount"]
+        R_NUM = req["nodeR"]
+        O_NUM = req["nodeO"]
+        P_NUM = req["nodeP"]
+        Q_NUM = req["nodeQ"]
+        S_NUM = req["nodeS"]
+    else:
+        return "Bad Request"
 
-    for i, line in enumerate(lines):
-        # print(line)
-        if i == 0:
-            USERPAIR_NUM = int(line)
-        elif i == 1:
-            traffic_list = [int(num) for num in line.split(',')]
-        elif i == 2:
-            pathnum_list = [int(num) for num in line.split(',')]
-        elif i == 3:
-            R_NUM = int(line)
-        elif i == 4:
-            O_NUM = int(line)
-        elif i == 5:
-            P_NUM = int(line)
-        elif i == 6:
-            Q_NUM = int(line)
-        else:
-            S_NUM = int(line)
 
     RO = 0.9
     DELAY_TOLER = 3

@@ -65,13 +65,11 @@ def get_json_link(json_file):
 
 @app.route("/CalPath", methods=["POST"])
 def calculate_path():
-    print("jizzzz")
     data = request.json
     try:
-        response = run_deploy(int(data["iter_times"]), int(
-            data["startID"]), int(data["destID"]), data["config_loc"])
+        response = run_deploy(config_loc = None, req = data)
         if response == "success":
-            show_path(data["config_loc"])
+            show_path(config_loc = None, req = data)
             with open("./path/result.json", "r") as jsfile:
                 data = json.load(jsfile)
             # output = ""
@@ -100,19 +98,19 @@ def calculate_path():
         return make_response(jsonify({"error": "Something Wrong"}), 500)
 
 
-@app.route("/showPath", methods=["POST"])
-def showPath():
+# @app.route("/showPath", methods=["POST"])
+# def showPath():
 
-    with open("./path/result.json") as jsfile:
-        data = json.load(jsfile)
-    response = ""
-    for key in data.keys():
-        response += key + ":<br>"
-        for i in range(len(data[key]['capacity'])):
-            response += str(data[key]["link"][i]) + "&nbsp=(" + \
-                str(data[key]["capacity"][i]) + ")=>&nbsp"
-        response += str(data[key]["link"][-1]) + "<br><br>"
-    return response
+#     with open("./path/result.json") as jsfile:
+#         data = json.load(jsfile)
+#     response = ""
+#     for key in data.keys():
+#         response += key + ":<br>"
+#         for i in range(len(data[key]['capacity'])):
+#             response += str(data[key]["link"][i]) + "&nbsp=(" + \
+#                 str(data[key]["capacity"][i]) + ")=>&nbsp"
+#         response += str(data[key]["link"][-1]) + "<br><br>"
+#     return response
 
 
 if __name__ == "__main__":

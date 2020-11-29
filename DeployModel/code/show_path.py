@@ -19,7 +19,7 @@ def JudgeStyle(data, node_style):
         return 's'
 
 # %%
-def show_path(config_loc):
+def show_path(config_loc = None, req = None):
     f = open("output.txt", 'r')
     output = f.read()
     f.close()
@@ -40,27 +40,47 @@ def show_path(config_loc):
     link_level = DataPre("Capacity level", link_level)
 
     # %%
-    config = open(config_loc, "r")
-    lines = config.readlines()
+    if config_loc != None:
+        config = open(config_loc, "r")
+        lines = config.readlines()
 
-    for i, line in enumerate(lines):
-        # print(line)
-        if i == 0:
-            USERPAIR_NUM = int(line)
-        elif i == 1:
-            traffic_list = [int(num) for num in line.split(',')]
-        elif i == 2:
-            pathnum_list = [int(num) for num in line.split(',')]
-        elif i == 3:
-            R_NUM = int(line)
-        elif i == 4:
-            O_NUM = int(line)
-        elif i == 5:
-            P_NUM = int(line)
-        elif i == 6:
-            Q_NUM = int(line)
-        else:
-            S_NUM = int(line)
+        for i, line in enumerate(lines):
+            # print(line)
+            if i == 0:
+                USERPAIR_NUM = int(line)
+            elif i == 1:
+                traffic_list = [int(num) for num in line.split(',')]
+            elif i == 2:
+                pathnum_list = [int(num) for num in line.split(',')]
+            elif i == 3:
+                R_NUM = int(line)
+            elif i == 4:
+                O_NUM = int(line)
+            elif i == 5:
+                P_NUM = int(line)
+            elif i == 6:
+                Q_NUM = int(line)
+            else:
+                S_NUM = int(line)
+    elif req != None:
+        # nodeO: 2
+        # nodeP: 3
+        # nodeQ: 1
+        # nodeR: 2
+        # nodeS: 2
+        # destID: 2
+        # iter_times: 12
+        # pathCount: [0, 3, 0, 0, 3]
+        # startID: 2
+        # traffic: [2, 3, 4, 1, 1]
+        USERPAIR_NUM = req["userCount"]
+        traffic_list = req["traffic"]
+        pathnum_list = req["pathCount"]
+        R_NUM = req["nodeR"]
+        O_NUM = req["nodeO"]
+        P_NUM = req["nodeP"]
+        Q_NUM = req["nodeQ"]
+        S_NUM = req["nodeS"]
     print(R_NUM, O_NUM, P_NUM, Q_NUM, S_NUM)
 
     node_num = [R_NUM, O_NUM, P_NUM, Q_NUM, S_NUM]
@@ -133,3 +153,5 @@ if __name__ == "__main__":
 # print(ind)
 # print(len(node))
 # print(len(node_level))
+
+# %%
