@@ -26,3 +26,7 @@ html {
 .method-item {
   cursor: pointer;
 }
+
+.N-ints {
+  width: 3rem !important;
+}

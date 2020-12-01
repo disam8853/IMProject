@@ -323,7 +323,7 @@ add_str = (id, num) => {
     id === 1 ? 'Traffic' : 'Path Count'
   }</label><div class="col-sm-10"><div class="row">`
   for (let i = 0; i < num; i++) {
-    str += `<div class="col-sm"><input type="number" class="form-control N-ints-${id}" /></div>`
+    str += `<div class="col-sm"><input type="number" class="form-control N-ints N-ints-${id} mb-2" /></div>`
   }
   str += '</div></div>'
   return str
