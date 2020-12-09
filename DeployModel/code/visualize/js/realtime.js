@@ -215,10 +215,12 @@ function getRealtimeTopo(container, nodes, flows, values) {
   for (var i = 0; i < values.length; i++) {
     for (var j = 0; j < FLOWS.length; j++) {
       if (values[i].id == FLOWS[j].oriPort) {
-        for(var k = 0; k < values[i].usage.tx.length; k++) {
-          if (values[i].usage.tx[k].value > 0)
-            FLOWS[j].flowValue = values[i].usage.tx[k].value
-        }
+        // for(var k = 0; k < values[i].usage.tx.length; k++) {
+        //   if (values[i].usage.tx[k].value > 0)
+        //     FLOWS[j].flowValue = values[i].usage.tx[k].value
+        // }
+        if (values[i].usage.tx[values[i].usage.tx.length - 1].value > 0)
+          FLOWS[j].flowValue = values[i].usage.tx[values[i].usage.tx.length - 1].value
       }
     }
   }
@@ -235,30 +237,32 @@ function plotTopo(ctx) {
   ctx.font = '20px bold Georgia'
   ////////////////plot flows///////////////
   for (var i = 0; i < FLOWS.length; i++) {
-    if (FLOWS[i].flowValue == 0) {
       ctx.beginPath()
       canvasArrow(ctx, FLOWS[i].oriNode.nodeX, FLOWS[i].oriNode.nodeY, FLOWS[i].destNode.nodeX, FLOWS[i].destNode.nodeY, none)
       ctx.stroke()
-    }     
-    else if (FLOWS[i].flowValue / FLOWS[i].bandwidth <= 0.25) {
-      ctx.beginPath()
-      canvasArrow(ctx, FLOWS[i].oriNode.nodeX, FLOWS[i].oriNode.nodeY, FLOWS[i].destNode.nodeX, FLOWS[i].destNode.nodeY, low)
-      ctx.stroke()
-    }
-    else if (FLOWS[i].flowValue / FLOWS[i].bandwidth <= 0.5) {
-      ctx.beginPath()
-      canvasArrow(ctx, FLOWS[i].oriNode.nodeX, FLOWS[i].oriNode.nodeY, FLOWS[i].destNode.nodeX, FLOWS[i].destNode.nodeY, mediumLow)
-      ctx.stroke()
-    }
-    else if (FLOWS[i].flowValue / FLOWS[i].bandwidth <= 0.75) {
-      ctx.beginPath()
-      canvasArrow(ctx, FLOWS[i].oriNode.nodeX, FLOWS[i].oriNode.nodeY, FLOWS[i].destNode.nodeX, FLOWS[i].destNode.nodeY, mediumHigh)
-      ctx.stroke()
-    }
-    else {
-      ctx.beginPath()
-      canvasArrow(ctx, FLOWS[i].oriNode.nodeX, FLOWS[i].oriNode.nodeY, FLOWS[i].destNode.nodeX, FLOWS[i].destNode.nodeY, high)
-      ctx.stroke()
+  }
+  for (var i = 0; i < FLOWS.length; i++) {
+    if (FLOWS[i].flowValue != 0) {
+      if (FLOWS[i].flowValue / FLOWS[i].bandwidth <= 0.25) {
+        ctx.beginPath()
+        canvasArrow(ctx, FLOWS[i].oriNode.nodeX, FLOWS[i].oriNode.nodeY, FLOWS[i].destNode.nodeX, FLOWS[i].destNode.nodeY, low)
+        ctx.stroke()
+      }
+      else if (FLOWS[i].flowValue / FLOWS[i].bandwidth <= 0.5) {
+        ctx.beginPath()
+        canvasArrow(ctx, FLOWS[i].oriNode.nodeX, FLOWS[i].oriNode.nodeY, FLOWS[i].destNode.nodeX, FLOWS[i].destNode.nodeY, mediumLow)
+        ctx.stroke()
+      }
+      else if (FLOWS[i].flowValue / FLOWS[i].bandwidth <= 0.75) {
+        ctx.beginPath()
+        canvasArrow(ctx, FLOWS[i].oriNode.nodeX, FLOWS[i].oriNode.nodeY, FLOWS[i].destNode.nodeX, FLOWS[i].destNode.nodeY, mediumHigh)
+        ctx.stroke()
+      }
+      else {
+        ctx.beginPath()
+        canvasArrow(ctx, FLOWS[i].oriNode.nodeX, FLOWS[i].oriNode.nodeY, FLOWS[i].destNode.nodeX, FLOWS[i].destNode.nodeY, high)
+        ctx.stroke()
+      }
     }
   }
   ///////////////plot values///////////////
