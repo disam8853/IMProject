@@ -241,7 +241,6 @@ function plotTopo(ctx) {
       ctx.stroke()
     }     
     else if (FLOWS[i].flowValue / FLOWS[i].bandwidth <= 0.25) {
-      console.log(FLOWS[i].flowValue, FLOWS[i].bandwidth)
       ctx.beginPath()
       canvasArrow(ctx, FLOWS[i].oriNode.nodeX, FLOWS[i].oriNode.nodeY, FLOWS[i].destNode.nodeX, FLOWS[i].destNode.nodeY, low)
       ctx.stroke()
