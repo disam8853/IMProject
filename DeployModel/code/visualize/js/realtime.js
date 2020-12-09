@@ -60,6 +60,66 @@ let values = [{
 	"advertised": 0,
 	"switch": "d9024b30-f45c-487d-a8d5-34dfc8530771",
 	"groups": 1
+},
+{
+	"id": "f0122aea-d03f-4e83-9913-289869cbe05c",
+	"type": "rate",
+	"usage": {
+		"tx": [
+			{
+				"time": "2020-12-08 23:01:17",
+				"value": 0
+			},
+			{
+				"time": "2020-12-08 23:01:47",
+				"value": 0
+			},
+			{
+				"time": "2020-12-08 23:02:17",
+				"value": 0
+			},
+			{
+				"time": "2020-12-08 23:02:47",
+				"value": 0
+			},
+			{
+				"time": "2020-12-08 23:03:17",
+				"value": 5000000
+			}
+		],
+		"rx": [
+			{
+				"time": "2020-12-08 23:01:17",
+				"value": 0
+			},
+			{
+				"time": "2020-12-08 23:01:47",
+				"value": 0
+			},
+			{
+				"time": "2020-12-08 23:02:17",
+				"value": 0
+			},
+			{
+				"time": "2020-12-08 23:02:47",
+				"value": 0
+			},
+			{
+				"time": "2020-12-08 23:03:17",
+				"value": 32
+			}
+		]
+	},
+	"hw_addr": "da:a6:6f:16:68:73",
+	"name": "EyeLAN2_OFC_7021-eth7",
+	"port_no": 7,
+	"config": 0,
+	"curr_speed": "10000000",
+	"state": 4,
+	"physical": false,
+	"advertised": 0,
+	"switch": "d9024b30-f45c-487d-a8d5-34dfc8530771",
+	"groups": 1
 }
 ]
 // 
@@ -96,6 +156,18 @@ createHiDPICanvas = function (w, h, el_id, ratio) {
   return can
 }
 ///////////////////////////////
+
+function formatBytes(bytes, decimals = 2) {
+  if (bytes === 0) return '0 Bytes'
+
+  const k = 1024
+  const dm = decimals < 0 ? 0 : decimals
+  const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
+
+  const i = Math.floor(Math.log(bytes) / Math.log(k))
+
+  return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i]
+}
 
 function canvasArrow(context, fromx, fromy, tox, toy, color) {
   var headlen = 20; // length of head in pixels
@@ -169,6 +241,7 @@ function plotTopo(ctx) {
       ctx.stroke()
     }     
     else if (FLOWS[i].flowValue / FLOWS[i].bandwidth <= 0.25) {
+      console.log(FLOWS[i].flowValue, FLOWS[i].bandwidth)
       ctx.beginPath()
       canvasArrow(ctx, FLOWS[i].oriNode.nodeX, FLOWS[i].oriNode.nodeY, FLOWS[i].destNode.nodeX, FLOWS[i].destNode.nodeY, low)
       ctx.stroke()
@@ -194,7 +267,7 @@ function plotTopo(ctx) {
     if (FLOWS[i].flowValue != 0) {
       var textX = (FLOWS[i].oriNode.nodeX + FLOWS[i].destNode.nodeX) / 2,
           textY = (FLOWS[i].oriNode.nodeY + FLOWS[i].destNode.nodeY) / 2
-      ctx.fillText(FLOWS[i].flowValue, textX, textY)
+      ctx.fillText(formatBytes(FLOWS[i].flowValue), textX, textY)
     }
   }
   ///////////////plot nodes////////////////
