@@ -12,11 +12,24 @@ from Class import *
 from LR import LR
 import time
 import sys
+from catknight import *
+import threading
 
 app = flask.Flask(__name__)
 CORS(app)
 app.config['DEBUG'] = True
+SW_COUNT = 7000
+WAIT_FOR_CALCULATE = True
 
+def run_topo():
+    # global WAIT_FOR_CALCULATE
+    # jz = 0
+    # while WAIT_FOR_CALCULATE:
+    #     jz += 1
+    #     print("wait", jz, WAIT_FOR_CALCULATE)
+    #     time.sleep(1)
+    with open("./run_topo.py", "r") as f:
+        exec(f.read())
 
 @app.route('/test', methods=['GET'])
 def test():
@@ -89,6 +102,10 @@ def calculate_path():
                 output['data'][-1]['paths'].append(
                     {'link': str(data[key]["link"][-1]), 'capacity': ''})
             # return output
+            WAIT_FOR_CALCULATE = False
+            p2 = threading.Thread(target = run_topo)
+            # app.run()
+            p2.start()
             print(output)
             return make_response(jsonify(output), 200)
         else:
@@ -97,6 +114,13 @@ def calculate_path():
         print(e)
         return make_response(jsonify({"error": "Something Wrong"}), 500)
 
+
+if __name__ == "__main__":
+    
+    app.run()
+
+    # p1.join()
+    # p2.join()
 
 # @app.route("/showPath", methods=["POST"])
 # def showPath():
@@ -112,6 +136,3 @@ def calculate_path():
 #         response += str(data[key]["link"][-1]) + "<br><br>"
 #     return response
 
-
-if __name__ == "__main__":
-    app.run()
