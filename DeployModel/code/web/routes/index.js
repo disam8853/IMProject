@@ -9,7 +9,7 @@ router.get('/', function (req, res, next) {
   res.render('index')
 })
 
-router.get('/napa', (req, res) => {
+router.get('/flow', (req, res) => {
   res.render('realtime')
 })
 
