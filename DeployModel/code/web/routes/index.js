@@ -9,4 +9,8 @@ router.get('/', function (req, res, next) {
   res.render('index')
 })
 
+router.get('/napa', (req, res) => {
+  res.render('realtime')
+})
+
 module.exports = router

@@ -205,6 +205,7 @@ function plotTopo(ctx) {
 $(document).ready(async () => {
   const { nodes, flows, values } = await getDate()
   getRealtimeTopo('realtimeGraph', nodes, flows, values)
+  $('.loding').hide()
 })
 
 function getDate() {
