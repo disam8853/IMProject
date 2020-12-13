@@ -203,7 +203,16 @@ function plotTopo(ctx) {
 }
 
 $(document).ready(async () => {
-  const { nodes, flows, values } = await getDate()
+  let nodes, flows, values
+  try {
+    const res = await getDate()
+    nodes = res.nodes
+    flows = res.flows
+    values = res.values
+  } catch (err) {
+    alert('error! Please refresh!')
+    console.log(err)
+  }
   getRealtimeTopo('realtimeGraph', nodes, flows, values)
   $('.loding').hide()
 })
