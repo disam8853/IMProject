@@ -121,6 +121,7 @@ function getRealtimeTopo(container, nodes, flows, values) {
 
 function plotTopo(ctx) {
   let low = '#00EC00',
+    overHundred = '#2894FF',
     mediumLow = '#F9F900',
     mediumHigh = '#FF0000',
     high = '#921AFF',
@@ -141,7 +142,18 @@ function plotTopo(ctx) {
   }
   for (var i = 0; i < FLOWS.length; i++) {
     if (FLOWS[i].flowValue != 0) {
-      if (FLOWS[i].flowValue / FLOWS[i].bandwidth <= 0.25) {
+      if (FLOWS[i].flowValue >= 100 && FLOWS[i].flowValue / FLOWS[i].bandwidth <= 0.25) {
+        ctx.beginPath()
+        canvasArrow(
+          ctx,
+          FLOWS[i].oriNode.nodeX,
+          FLOWS[i].oriNode.nodeY,
+          FLOWS[i].destNode.nodeX,
+          FLOWS[i].destNode.nodeY,
+          overHundred,
+        )
+        ctx.stroke()
+      } else if (FLOWS[i].flowValue / FLOWS[i].bandwidth <= 0.25) {
         ctx.beginPath()
         canvasArrow(
           ctx,
