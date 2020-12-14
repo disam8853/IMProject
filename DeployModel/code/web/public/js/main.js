@@ -1,3 +1,4 @@
+const BACKEND_API = 'https://ab13b976e73f.ngrok.io/backend'
 var NODES = new Array()
 
 /////for canvas quality/////
@@ -38,7 +39,7 @@ var WINDOWWIDTH = window.innerWidth,
 // let canvas = createHiDPICanvas(1632, 722)
 
 function getMatrix() {
-  let url = 'http://127.0.0.1:5000/getAdjMatrix'
+  let url = BACKEND_API + '/getAdjMatrix'
   return fetch(url)
     .then((response) => response.json())
     .then((matrix) => {
@@ -90,7 +91,7 @@ function createLines(matrix, CANVASWIDTH, CANVASHEIGHT, ctx) {
 ///linked graph///
 function getPathedGraph() {
   let json_file = 'result.json' // can change later
-  let url = 'http://127.0.0.1:5000/getJsonLink/' + json_file
+  let url = BACKEND_API + '/getJsonLink/' + json_file
   return fetch(url)
     .then((response) => response.json())
     .then((linkAndPath) => {
@@ -241,7 +242,7 @@ calPath = async () => {
     throw err
   }
 
-  return fetch('http://127.0.0.1:5000/CalPath', {
+  return fetch(BACKEND_API + '/CalPath', {
     method: 'POST',
     mode: 'cors',
     headers: {
