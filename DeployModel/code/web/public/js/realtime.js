@@ -304,7 +304,7 @@ $(document).ready(async () => {
   getRealtimeTopo('realtimeGraph', nodes, flows, values)
   $('.loding').hide()
 
-  setInterval(function() {
+  setInterval(async function() {
     try {
       const res = await getDate()
       nodes = res.nodes
