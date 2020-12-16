@@ -163,7 +163,7 @@ function updateRealtimeTopo(container, nodes, flows, values) {
           if (flows[i].port[0].switch == NODES[j].id) oriNode = NODES[j]
           else if (flows[i].port[1].switch == NODES[j].id) destNode = NODES[j]
         }
-        FLOWS.push({
+        updateFlows.push({
           id: flows[i].id,
           bandwidth: flows[i].bandwidth,
           oriPort: flows[i].port[0].id,
