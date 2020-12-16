@@ -119,6 +119,82 @@ function getRealtimeTopo(container, nodes, flows, values) {
   plotTopo(ctx)
 }
 
+function updateRealtimeTopo(container, nodes, flows, values) {
+  let canvas = createHiDPICanvas(2400, 1800, container)
+  let ctx = canvas.getContext('2d')
+  var CANVASWIDTH = parseInt(canvas.style.width, 10),
+    CANVASHEIGHT = parseInt(canvas.style.height, 10)
+  ////////////////dealing nodes//////////////////
+  var updateNodes = new Array()
+  for (var i = 0; i < nodes.length; i++) {
+    for (var j = 0; j < NODES.length; j++) {
+      /////////node still exists//////////
+      if (nodes[i].id == NODES[j].id) 
+        updateNodes.push(NODES[j])
+      /////////new nodes//////////////////
+      else {
+        var nodeX = CANVASWIDTH * ((9 / 11) * (Math.random() + 0.1))
+        var nodeY = CANVASHEIGHT * ((9 / 11) * (Math.random() + 0.1))
+        updateNodes.push({
+          name: nodes[i].name,
+          id: nodes[i].id,
+          nodeX: nodeX,
+          nodeY: nodeY,
+        })
+      }
+    }
+  }
+  NODES = updateNodes
+  // console.log(NODES)
+
+  ///////////////dealing flows///////////////////
+  var updateFlows = new Array()
+  for (var i = 0; i < flows.length; i++) {
+    for (var j = 0; j < FLOWS.length; j++) {
+      /////////flow still exists//////////
+      if (flows[i].id == FLOWS[j].id) {
+        FLOWS[j].flowValue = 0
+        updateFlows.push(FLOWS[j])
+      }
+      /////////new flows//////////////////
+      else {
+        var oriNode, destNode
+        for (var j = 0; j < NODES.length; j++) {
+          if (flows[i].port[0].switch == NODES[j].id) oriNode = NODES[j]
+          else if (flows[i].port[1].switch == NODES[j].id) destNode = NODES[j]
+        }
+        FLOWS.push({
+          id: flows[i].id,
+          bandwidth: flows[i].bandwidth,
+          oriPort: flows[i].port[0].id,
+          oriNode: oriNode,
+          destNode: destNode,
+          flowValue: 0,
+        })
+      }
+    }
+  }
+  FLOWS = updateFlows
+  // console.log(FLOWS)
+
+  ///////////////dealing value////////////////////
+  // console.log(values)
+  for (var i = 0; i < values.length; i++) {
+    for (var j = 0; j < FLOWS.length; j++) {
+      if (values[i].id == FLOWS[j].oriPort) {
+        // for(var k = 0; k < values[i].usage.tx.length; k++) {
+        //   if (values[i].usage.tx[k].value > 0)
+        //     FLOWS[j].flowValue = values[i].usage.tx[k].value
+        // }
+        if (values[i].usage.tx[values[i].usage.tx.length - 1].value > 0)
+          FLOWS[j].flowValue =
+            values[i].usage.tx[values[i].usage.tx.length - 1].value
+      }
+    }
+  }
+  plotTopo(ctx)
+}
+
 function plotTopo(ctx) {
   let low = '#00EC00',
     overHundred = '#2894FF',
@@ -227,6 +303,19 @@ $(document).ready(async () => {
   }
   getRealtimeTopo('realtimeGraph', nodes, flows, values)
   $('.loding').hide()
+
+  setInterval(function() {
+    try {
+      const res = await getDate()
+      nodes = res.nodes
+      flows = res.flows
+      values = res.values
+    } catch (err) {
+      alert('error! Please refresh!')
+      console.log(err)
+    }
+    updateRealtimeTopo('realtimeGraph', nodes, flows, values)
+  }, 30000)
 })
 
 function getDate() {
