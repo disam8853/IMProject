@@ -68,6 +68,8 @@ router.get('/all-data', async (req, res, next) => {
     return next(error)
   }
 
+  port_usg = port_usg.filter((x) => !x.ERROR)
+
   res.json({ node, link, port_usg })
 })
 
