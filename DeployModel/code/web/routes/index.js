@@ -13,6 +13,10 @@ router.get('/flow', (req, res) => {
   res.render('realtime')
 })
 
+router.get('/flowtable', (req, res) => {
+  res.render('table')
+})
+
 router.get('/newentry', (req, res, next) => {
   fetch(NAPA_API + '/api/openflow/switch/', {
     headers: {
