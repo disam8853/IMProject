@@ -90,6 +90,40 @@ router.get('/switch', (req, res, next) => {
     })
 })
 
+router.get('/flowentry', (req, res, next) => {
+  fetch(NAPA_API + '/api/openflow/flowentry/', {
+    headers: {
+      Authorization: 'Basic c2Rib3g6c2Rib3g=',
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((response) => response.json())
+    .then((response) => {
+      res.json(response)
+    })
+    .catch((err) => {
+      console.log(err)
+      res.sendStatus(500)
+    })
+})
+
+router.get('/groupentry', (req, res, next) => {
+  fetch(NAPA_API + '/api/openflow/groupentry/', {
+    headers: {
+      Authorization: 'Basic c2Rib3g6c2Rib3g=',
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((response) => response.json())
+    .then((response) => {
+      res.json(response)
+    })
+    .catch((err) => {
+      console.log(err)
+      res.sendStatus(500)
+    })
+})
+
 router.post('/flowentry', (req, res) => {
   return fetch(NAPA_API + '/api/openflow/flowentry/', {
     method: 'post',
