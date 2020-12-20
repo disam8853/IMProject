@@ -47,6 +47,7 @@ function postFloeentry() {
     .then((res) => {
       window.scroll(0, 0)
       $('.loading').fadeOut()
+      $('.alert').hide()
       if (res.status !== 200) throw new Error('Create flow entry error')
       else return res.json()
     })
