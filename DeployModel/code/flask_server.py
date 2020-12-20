@@ -22,14 +22,18 @@ SW_COUNT = 7000
 WAIT_FOR_CALCULATE = True
 
 def run_topo():
+    global SW_COUNT, WAIT_FOR_CALCULATE
     # global WAIT_FOR_CALCULATE
     # jz = 0
     # while WAIT_FOR_CALCULATE:
     #     jz += 1
     #     print("wait", jz, WAIT_FOR_CALCULATE)
     #     time.sleep(1)
-    with open("./run_topo.py", "r") as f:
-        exec(f.read())
+    # with open("./run_topo.py", "r") as f:
+        # exec(f.read())
+    SW_COUNT += 100
+    os.system("sudo python3 ./run_topo.py")
+    WAIT_FOR_CALCULATE = False
 
 @app.route('/test', methods=['GET'])
 def test():
@@ -78,6 +82,7 @@ def get_json_link(json_file):
 
 @app.route("/CalPath", methods=["POST"])
 def calculate_path():
+    global WAIT_FOR_CALCULATE
     data = request.json
     try:
         response = run_deploy(config_loc = None, req = data)
@@ -103,10 +108,14 @@ def calculate_path():
                     {'link': str(data[key]["link"][-1]), 'capacity': ''})
             # return output
             WAIT_FOR_CALCULATE = False
+            
             p2 = threading.Thread(target = run_topo)
-            # app.run()
+             # app.run()
             p2.start()
             print(output)
+            while WAIT_FOR_CALCULATE:
+                time.sleep(1)
+            WAIT_FOR_CALCULATE = True
             return make_response(jsonify(output), 200)
         else:
             return make_response(jsonify({"error": "failed"}), 500)

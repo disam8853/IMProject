@@ -263,5 +263,9 @@ def run_deploy(config_loc=None, req = None):
 
 
 if __name__ == "__main__":
-    run_deploy(int(sys.argv[1]), int(sys.argv[2]),
-               int(sys.argv[3]), sys.argv[4])
+    req = {
+            "iter_times": int(sys.argv[1]),
+            "startID": int(sys.argv[2]),
+            "destID": int(sys.argv[3])
+    }
+    run_deploy(config_loc = sys.argv[4], req = req)
