@@ -108,6 +108,7 @@ $(document).ready(async () => {
     if (confirm('您是否確定要刪除？')) {
       const id = $(this).children()[0].value
       deleteFlowEntry(id)
+      location.reload()
     }
   })
 
@@ -115,6 +116,7 @@ $(document).ready(async () => {
     if (confirm('您是否確定要刪除？')) {
       const id = $(this).children()[0].value
       deleteGroupEntry(id)
+      location.reload()
     }
   })
 })
