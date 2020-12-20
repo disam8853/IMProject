@@ -26,8 +26,7 @@ function fillFlowEntry(switches, flowEntries) {
         appendToTable += flowEntries[j].idle_timeout
         appendToTable += '</td><td>'
         appendToTable += flowEntries[j].cookie
-        appendToTable +=
-          '</td><td><button type="button" class="btn btn-light delete-btn">DELETE</button></td></tr>'
+        appendToTable += `</td><td><button type="button" class="btn btn-light delete-btn">DELETE<input type="hidden" value="${flowEntries[j].id}"></button></td></tr>`
 
         targetTable.append(appendToTable)
       }
@@ -51,8 +50,7 @@ function fillGroupEntry(switches, groupEntries) {
           appendToTable += JSON.stringify(groupEntries[j].buckets[k]) + '<br>'
         appendToTable += '</td><td>'
         appendToTable += groupEntries[j].status
-        appendToTable +=
-          '</td><td><button type="button" class="btn btn-light delete-btn">DELETE</button></td></tr>'
+        appendToTable += `</td><td><button type="button" class="btn btn-light delete-btn">DELETE<input type="hidden" value="${groupEntries[j].id}"></button></td></tr>`
 
         targetTable.append(appendToTable)
       }
@@ -106,7 +104,33 @@ $(document).ready(async () => {
   fillFlowEntry(Switches, FlowEntries)
   fillGroupEntry(Switches, GroupEntries)
 
-  $('.delete-btn').click((el) => {
-    confirm('您是否確定要刪除？')
+  $('#flowEntryBody .delete-btn').click(function (el) {
+    if (confirm('您是否確定要刪除？')) {
+      const id = $(this).children()[0].value
+      deleteFlowEntry(id)
+    }
+  })
+
+  $('#groupEntryBody .delete-btn').click((el) => {
+    if (confirm('您是否確定要刪除？')) {
+      const id = $(this).children()[0].value
+      deleteGroupEntry(id)
+    }
   })
 })
+
+function deleteFlowEntry(id) {
+  return fetch('/api/flowentry/' + id, { method: 'delete' })
+    .then((res) => res.json())
+    .catch((err) => {
+      console.log(err)
+    })
+}
+
+function deleteGroupEntry(id) {
+  return fetch('/api/groupentry/' + id, { method: 'delete' })
+    .then((res) => res.json())
+    .catch((err) => {
+      console.log(err)
+    })
+}

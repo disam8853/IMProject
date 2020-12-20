@@ -148,8 +148,8 @@ router.post('/flowentry', (req, res) => {
     })
 })
 
-router.put('/flowentry/{id}', (req, res) => {
-  return fetch(NAPA_API + '/api/monitor/flowentry/' + req.params.id, {
+router.put('/flowentry/:id', (req, res) => {
+  return fetch(NAPA_API + '/api/openflow/flowentry/' + req.params.id, {
     method: 'put',
     body: JSON.stringify(req.body),
     headers: {
@@ -160,6 +160,42 @@ router.put('/flowentry/{id}', (req, res) => {
     .then((response) => response.json())
     .then((response) => {
       res.json(response)
+    })
+    .catch((err) => {
+      console.log(err)
+      res.sendStatus(500)
+    })
+})
+
+router.delete('/flowentry/:id', (req, res) => {
+  return fetch(NAPA_API + '/api/openflow/flowentry/' + req.params.id, {
+    method: 'delete',
+    headers: {
+      Authorization: 'Basic c2Rib3g6c2Rib3g=',
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((response) => {
+      if (response.status >= 200 && response.status < 300) res.json(response)
+      else throw new Error('delete error')
+    })
+    .catch((err) => {
+      console.log(err)
+      res.sendStatus(500)
+    })
+})
+
+router.delete('/groupentry/:id', (req, res) => {
+  return fetch(NAPA_API + '/api/openflow/groupentry/' + req.params.id, {
+    method: 'delete',
+    headers: {
+      Authorization: 'Basic c2Rib3g6c2Rib3g=',
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((response) => {
+      if (response.status >= 200 && response.status < 300) res.json(response)
+      else throw new Error('delete error')
     })
     .catch((err) => {
       console.log(err)
