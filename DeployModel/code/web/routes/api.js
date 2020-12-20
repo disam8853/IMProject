@@ -148,6 +148,30 @@ router.post('/flowentry', (req, res) => {
     })
 })
 
+router.post('/groupentry', (req, res) => {
+  return fetch(NAPA_API + '/api/openflow/groupentry/', {
+    method: 'post',
+    body: JSON.stringify(req.body),
+    headers: {
+      Authorization: 'Basic c2Rib3g6c2Rib3g=',
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((response) => {
+      console.log(response)
+      if (response.status >= 200 && response.status < 300)
+        return response.json()
+      else throw new Error('call post groupentry error')
+    })
+    .then((response) => {
+      res.json(response)
+    })
+    .catch((err) => {
+      console.log(err)
+      res.sendStatus(500)
+    })
+})
+
 router.put('/flowentry/:id', (req, res) => {
   return fetch(NAPA_API + '/api/openflow/flowentry/' + req.params.id, {
     method: 'put',

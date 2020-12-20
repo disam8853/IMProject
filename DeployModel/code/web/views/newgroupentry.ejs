@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>New Group Entry</title>
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <style>
+      .loading {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        font-size: 60vmin;
+        transform: translate(-50%, -50%);
+        z-index: 10;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="loading" style="display: none">
+      <i class="fas fa-spinner fa-spin"></i>
+    </div>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+      <a class="navbar-brand text-light" href="#">Deploy Model</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="navbar-link text-light" href="/flowtable">Flow Table</a>
+            <a class="navbar-link text-light" href="/newentry">New Entry</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="container">
+      <div
+        class="alert alert-success my-3"
+        role="alert"
+        style="display: none"
+      ></div>
+
+      <div
+        class="alert alert-danger my-3"
+        role="alert"
+        style="display: none"
+      ></div>
+
+      <div class="text-center my-3">
+        <h1>New Group Entry</h1>
+      </div>
+
+      <div class="form-group row mb-3">
+        <label for="switch" class="col-sm-2 col-form-label">Switch</label>
+        <div class="col-sm-10">
+          <select class="custom-select" id="switch">
+            <option selected>Choose...</option>
+            <% switch_name.forEach(sw => { %>
+            <option value="<%= sw.id %>"><%= sw.name %></option>
+            <% }) %>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="gid" class="col-sm-2 col-form-label">GROUP ID</label>
+        <div class="col-sm-10">
+          <input type="number" min="0" class="form-control" id="gid" />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="type" class="col-sm-2 col-form-label">TYPE</label>
+        <div class="col-sm-10">
+          <select class="custom-select" id="type">
+            <option selected value="ALL">ALL</option>
+            <option value="SELECT">SELECT</option>
+            <option value="INDIRECT">INDIRECT</option>
+            <option value="FAST_FAILOVER">FAST_FAILOVER</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="OUTPUT" class="col-sm-2 col-form-label">OUTPUT</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="OUTPUT" />
+        </div>
+      </div>
+
+      <div class="text-center">
+        <button class="btn btn-dark" id="submit">Create Entry</button>
+      </div>
+    </div>
+  </body>
+
+  <script
+    src="https://use.fontawesome.com/releases/v5.15.1/js/all.js"
+    data-auto-replace-svg="nest"
+  ></script>
+  <script
+    src="https://code.jquery.com/jquery-3.5.1.js"
+    integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+    crossorigin="anonymous"
+  ></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.70/jquery.blockUI.min.js"></script>
+
+  <script
+    src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"
+  ></script>
+  <script src="js/newgroupentry.js"></script>
+</html>

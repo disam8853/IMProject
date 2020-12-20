@@ -41,4 +41,28 @@ router.get('/newentry', (req, res, next) => {
     })
 })
 
+router.get('/newgroupentry', (req, res, next) => {
+  fetch(NAPA_API + '/api/openflow/switch/', {
+    headers: {
+      Authorization: 'Basic c2Rib3g6c2Rib3g=',
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((response) => response.json())
+    .then((response) => {
+      let switch_name = []
+      for (const e of response) {
+        switch_name.push({
+          id: e.id,
+          name: e.name,
+        })
+      }
+
+      res.render('newgroupentry', { switch_name })
+    })
+    .catch((err) => {
+      next(err)
+    })
+})
+
 module.exports = router
