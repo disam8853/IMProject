@@ -20,3 +20,21 @@ html {
 .N-ints {
   width: 3rem !important;
 }
+
+#flow-entry-container{
+  width: 100%;
+}
+
+#group-entry-container{
+  width: 100%;
+}
+
+#flow-entry td{
+  max-width: 10%;
+  word-break: break-word;
+}
+
+#group-entry td{
+  max-width: 10%;
+  word-break: break-word;
+}
