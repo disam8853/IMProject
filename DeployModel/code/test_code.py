@@ -1,16 +1,24 @@
-import os
-import pandas
-import json
-if os.path.exists('link.csv'):
-	links = []
-	file = open('link.csv')
-	link_list = file.readlines()
-	link_list = link_list[1:]
-	for link in link_list:
-		print(link)
-		link = list(map(int, (link[: -1]).split(',')))[1: ]
-		links.append(link)
-		print(link)
+import time
+from multiprocess import Process
+
+def looping():
+	i = 0
+	while(1):
+		i += 1
+		time.sleep(3)
+		print(i)
+
+def main():
+	print("this is main function~")
+	time.sleep(6)
+	print("end of main function~")
+if __name__ == "__main__":
+	p1 = Process(target = looping)
+	p2 = Process(target = main)
+	p1.start()
+	p2.start()
+	p1.join()
+	p2.join()
 
 # file = open('path/result_20201116_032636.json')
 # r = file.read()

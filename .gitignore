@@ -5,3 +5,4 @@ result.json
 output.txt
 .DS_Store
 node_modules
+*.log

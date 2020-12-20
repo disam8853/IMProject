@@ -3,13 +3,13 @@ import pandas as pd
 import json
 import sys
 import time
-def myCatknight(adj_path, link_path, method_path):
+def myCatknight(adj_path, link_path, method_path, method):
     try:
+        start_time = time.time()
         topo = Catknight(auth=('sdbox','sdbox'), clean = False)
-        if len(sys.argv) > 1:
-            if sys.argv[1] == "-d": 
-                topo.deleteAll()
-                quit()
+        if method == "-d": 
+            topo.deleteAll()
+            quit()
         prepand = "n"
         # nodes = ['a', 'b', 'c']
         # adj = pd.read_csv("../IMProject/DeployModel/code/adjacency.csv")
@@ -52,12 +52,38 @@ def myCatknight(adj_path, link_path, method_path):
             print(key, linkset[::-1])
             topo.addPath(linkset)
             topo.addPath(linkset[::-1])
-        while 1:
-            time.sleep(0.5)
-            topo.ping("n" + str(startID), "n" + str(destID))
+        iter_times = 3600
+        cost_time = time.time() - start_time
+        print("\n ~~~ Create Cost: {} min {} secs ~~~\n".format(int(cost_time/60), cost_time%60))
+        start_time = time.time()
+
+        if method == "run":
+            for i in range(iter_times):
+                time.sleep(0.5)
+                topo.ping("n" + str(startID), "n" + str(destID))
+            while len(sys.argv) > 1:
+                ping = input("{} ping {}? (Y/N)".format(startID, destID))
+                if ping == "Y" or ping == "y":
+                    iter_times = 10
+                    for i in range(iter_times):
+                        time.sleep(1)
+                        topo.ping("n" + str(startID), "n" + str(destID))
+                elif ping == "N" or ping == "n":
+                    print("Bye bye")
+                else:
+                    print("Please enter Y or N.")
+                    continue
+        elif method == None:
+            CLI(net)
+        cost_time = time.time() - start_time
+        print("\n ~~~ Cost: {} min {} secs ~~~\n".format(int(cost_time/60), cost_time%60))
         # x = input("pause")
         # ping(["n0_h1", "n2_h1"])
     except Exception as e:
+        print(e)
         return e
-
-myCatknight("./adjacency.csv", "./link.csv", "./path/result.json")
+if len(sys.argv) > 1:
+    myCatknight("./adjacency.csv", "./link.csv", "./path/result.json", sys.argv[1])
+else:
+    myCatknight("./adjacency.csv", "./link.csv", "./path/result.json", None)
+    
