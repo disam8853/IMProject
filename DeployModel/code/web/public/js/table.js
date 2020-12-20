@@ -26,7 +26,8 @@ function fillFlowEntry(switches, flowEntries) {
         appendToTable += flowEntries[j].idle_timeout
         appendToTable += '</td><td>'
         appendToTable += flowEntries[j].cookie
-        appendToTable += '</td></tr>'
+        appendToTable +=
+          '</td><td><button type="button" class="btn btn-light delete-btn">DELETE</button></td></tr>'
 
         targetTable.append(appendToTable)
       }
@@ -50,7 +51,8 @@ function fillGroupEntry(switches, groupEntries) {
           appendToTable += JSON.stringify(groupEntries[j].buckets[k]) + '<br>'
         appendToTable += '</td><td>'
         appendToTable += groupEntries[j].status
-        appendToTable += '</td></tr>'
+        appendToTable +=
+          '</td><td><button type="button" class="btn btn-light delete-btn">DELETE</button></td></tr>'
 
         targetTable.append(appendToTable)
       }
@@ -96,11 +98,15 @@ $(document).ready(async () => {
   } catch (err) {
     alert('Error. Please refresh.')
   }
+
   console.log(Switches)
   console.log(FlowEntries)
   console.log(GroupEntries)
 
   fillFlowEntry(Switches, FlowEntries)
   fillGroupEntry(Switches, GroupEntries)
-  console.log(data)
+
+  $('.delete-btn').click((el) => {
+    confirm('您是否確定要刪除？')
+  })
 })
