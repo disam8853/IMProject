@@ -111,7 +111,7 @@ $(document).ready(async () => {
     }
   })
 
-  $('#groupEntryBody .delete-btn').click((el) => {
+  $('#groupEntryBody .delete-btn').click(function (el) {
     if (confirm('您是否確定要刪除？')) {
       const id = $(this).children()[0].value
       deleteGroupEntry(id)
