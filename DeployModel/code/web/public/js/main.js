@@ -1,4 +1,4 @@
-const BACKEND_API = 'https://a8e4e5122cb1.ngrok.io/backend'
+const BACKEND_API = 'https://7e678880ba41.ngrok.io/backend'
 var NODES = new Array()
 
 /////for canvas quality/////
