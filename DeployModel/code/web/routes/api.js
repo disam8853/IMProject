@@ -73,4 +73,76 @@ router.get('/all-data', async (req, res, next) => {
   res.json({ node, link, port_usg })
 })
 
+router.get('/switch', (req, res, next) => {
+  fetch(NAPA_API + '/api/openflow/switch/', {
+    headers: {
+      Authorization: 'Basic c2Rib3g6c2Rib3g=',
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((response) => response.json())
+    .then((response) => {
+      res.json(response)
+    })
+    .catch((err) => {
+      console.log(err)
+      res.send(500)
+    })
+})
+
+router.post('/flowentry', (req, res) => {
+  return fetch(NAPA_API + '/api/monitor/flowentry/', {
+    method: 'post',
+    body: JSON.stringify(req.body),
+    headers: {
+      Authorization: 'Basic c2Rib3g6c2Rib3g=',
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((response) => response.json())
+    .then((response) => {
+      res.json(response)
+    })
+    .catch((err) => {
+      console.log(err)
+      res.send(500)
+    })
+})
+
+router.put('/flowentry/{id}', (req, res) => {
+  return fetch(NAPA_API + '/api/monitor/flowentry/' + req.params.id, {
+    method: 'put',
+    body: JSON.stringify(req.body),
+    headers: {
+      Authorization: 'Basic c2Rib3g6c2Rib3g=',
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((response) => response.json())
+    .then((response) => {
+      res.json(response)
+    })
+    .catch((err) => {
+      console.log(err)
+      res.send(500)
+    })
+})
+
+router.get('/rulerecord', (req, res) => {
+  fetch(NAPA_API + '/api/openflow/rulerecord/', {
+    headers: {
+      Authorization: 'Basic c2Rib3g6c2Rib3g=',
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((response) => response.json())
+    .then((response) => {
+      res.json(response)
+    })
+    .catch((err) => {
+      console.log(err)
+      res.send(500)
+    })
+})
+
 module.exports = router
