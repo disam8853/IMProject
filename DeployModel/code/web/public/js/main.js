@@ -195,7 +195,7 @@ doCalPath = async () => {
   reset()
 
   $.blockUI({
-    message: '<i class="fas fa-spinner"></i>',
+    message: '<i class="fas fa-spinner fa-spin"></i>',
     css: {
       borderWidth: '0px',
       backgroundColor: 'transparent',

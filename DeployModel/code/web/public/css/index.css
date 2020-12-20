@@ -7,17 +7,7 @@ html {
   height: 100vh;
 }
 
-@keyframes rotate {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
 .fa-spinner {
-  animation: rotate 2.5s linear infinite;
   font-size: 50vmin;
   transform: translateY(-50%);
   color: coral;

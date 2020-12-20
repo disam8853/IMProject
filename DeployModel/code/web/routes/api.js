@@ -86,12 +86,12 @@ router.get('/switch', (req, res, next) => {
     })
     .catch((err) => {
       console.log(err)
-      res.send(500)
+      res.sendStatus(500)
     })
 })
 
 router.post('/flowentry', (req, res) => {
-  return fetch(NAPA_API + '/api/monitor/flowentry/', {
+  return fetch(NAPA_API + '/api/openflow/flowentry/', {
     method: 'post',
     body: JSON.stringify(req.body),
     headers: {
@@ -99,13 +99,18 @@ router.post('/flowentry', (req, res) => {
       'Content-Type': 'application/json',
     },
   })
-    .then((response) => response.json())
+    .then((response) => {
+      console.log(response)
+      if (response.status >= 200 && response.status < 300)
+        return response.json()
+      else throw new Error('call post flowentry error')
+    })
     .then((response) => {
       res.json(response)
     })
     .catch((err) => {
       console.log(err)
-      res.send(500)
+      res.sendStatus(500)
     })
 })
 
@@ -124,7 +129,7 @@ router.put('/flowentry/{id}', (req, res) => {
     })
     .catch((err) => {
       console.log(err)
-      res.send(500)
+      res.sendStatus(500)
     })
 })
 
@@ -141,7 +146,7 @@ router.get('/rulerecord', (req, res) => {
     })
     .catch((err) => {
       console.log(err)
-      res.send(500)
+      res.sendStatus(500)
     })
 })
 
