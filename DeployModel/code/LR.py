@@ -1,4 +1,5 @@
 #%matplotlib inline
+# code from Master degree's student :)
 from Class import *
 import numpy as np
 import math

@@ -1,8 +1,11 @@
+# code for generate virtual switches use mininet
+
 from catknight import *
 import pandas as pd
 import json
 import sys
 import time
+
 def myCatknight(adj_path, link_path, method_path, method):
     try:
         start_time = time.time()
@@ -77,8 +80,7 @@ def myCatknight(adj_path, link_path, method_path, method):
             CLI(net)
         cost_time = time.time() - start_time
         print("\n ~~~ Cost: {} min {} secs ~~~\n".format(int(cost_time/60), cost_time%60))
-        # x = input("pause")
-        # ping(["n0_h1", "n2_h1"])
+        
     except Exception as e:
         print(e)
         return e

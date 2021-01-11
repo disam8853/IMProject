@@ -1,15 +1,14 @@
+# code from Master degree's student :)
+# I change something to make it more convenient for our project :)
 
-# %%
 import random
 import math
 import numpy as np
-from Class import *
-from LR import LR
+from Class import * # class of node, link, path
+from LR import LR # algorithm
 import time
 import sys
 
-
-# %%
 # Create nodes (including in-nodes and out-nodes of 5 types of nodes)
 def create_nodes(r_num: int, o_num: int, p_num: int, q_num: int, s_num: int):
     # The number of processor, observser, and LAN should be the same
@@ -217,18 +216,15 @@ def run_deploy(config_loc=None, req = None):
         r_loc, o_loc, p_loc, q_loc, s_loc)
     print("Number of links: ", comm_links.length())
 
-    # %%
+    # output links to a file
     link_present = []
     for i in comm_links.links:
         link_present.append([i.id, i.node1.id, i.node2.id])
     df = pd.DataFrame(np.array(link_present), columns=[
                       "id", "origin", "destination"])
     df.to_csv("link.csv", index=0)
-    # print(adjacency.get_matrix())
-
-    # %%
-
-    # %%
+    
+    # output adjacency matrix
     df = pd.DataFrame(adjacency.get_matrix())
     df.to_csv("adjacency.csv", index=False)
     print(np.sum(adjacency.get_matrix()))
@@ -241,6 +237,7 @@ def run_deploy(config_loc=None, req = None):
         pair.traffic = traffic_list[i]
         pair.path_number = pathnum_list[i]
         if start_node != None and dest_node != None:
+            # let user set start and destination node
             pair.origin = r_loc.get_link(start_node)
             pair.destination = r_loc.get_link(dest_node)
         else:
@@ -258,6 +255,7 @@ def run_deploy(config_loc=None, req = None):
     print("Z_star", Z_star)
     iter_limit = iter_times
 
+    # stop criterion: limit exceed.
     result = __LR.lagrangian_relaxation(Z_star, 0, iter_limit)
     return result
 
