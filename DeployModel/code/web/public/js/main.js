@@ -1,4 +1,4 @@
-const BACKEND_API = 'https://7e678880ba41.ngrok.io/backend'
+const BACKEND_API = 'http://140.112.106.237:16902/backend'
 var NODES = new Array()
 
 /////for canvas quality/////
@@ -96,8 +96,7 @@ function getPathedGraph() {
     .then((response) => response.json())
     .then((linkAndPath) => {
       // console.log(linkAndPath.path)
-      for (var i = 0; i < linkAndPath.path.length; i++)
-        generatePathedGraph(i, linkAndPath.link, linkAndPath.path[i])
+      for (var i = 0; i < linkAndPath.path.length; i++) generatePathedGraph(i, linkAndPath.link, linkAndPath.path[i])
     })
     .catch((err) => {
       throw err
@@ -123,10 +122,7 @@ function generatePathedGraph(number, link, path) {
       destinationNode = targetLink[1]
     ctx.beginPath()
     ctx.moveTo(NODES[startNode].nodeX + 17, NODES[startNode].nodeY - 5)
-    ctx.lineTo(
-      NODES[destinationNode].nodeX + 17,
-      NODES[destinationNode].nodeY - 5,
-    )
+    ctx.lineTo(NODES[destinationNode].nodeX + 17, NODES[destinationNode].nodeY - 5)
     ctx.stroke()
   }
 
@@ -141,15 +137,12 @@ function generatePathedGraph(number, link, path) {
       destinationNode = path.link[i + 1]
     ctx.beginPath()
     ctx.moveTo(NODES[startNode].nodeX + 17, NODES[startNode].nodeY - 5)
-    ctx.lineTo(
-      NODES[destinationNode].nodeX + 17,
-      NODES[destinationNode].nodeY - 5,
-    )
+    ctx.lineTo(NODES[destinationNode].nodeX + 17, NODES[destinationNode].nodeY - 5)
     ctx.stroke()
     ctx.fillText(
       path.capacity[i],
       (NODES[startNode].nodeX + NODES[destinationNode].nodeX) / 2,
-      (NODES[startNode].nodeY + NODES[destinationNode].nodeY) / 2,
+      (NODES[startNode].nodeY + NODES[destinationNode].nodeY) / 2
     )
   }
 
@@ -283,9 +276,7 @@ showPath = () => {
 
 handleCalPath = (res) => {
   for (const x of res.data) {
-    $('#path-text').append(
-      `<p class="path-item btn btn-outline-dark mr-3">${x.name}</p>`,
-    )
+    $('#path-text').append(`<p class="path-item btn btn-outline-dark mr-3">${x.name}</p>`)
 
     let txt = ''
     for (const y of x.paths) {
