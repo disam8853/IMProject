@@ -1,4 +1,5 @@
-#%%
+# this is a file to change path to readable string, and json file
+
 import numpy as np
 import pandas as pd
 import json
@@ -7,6 +8,7 @@ import sys
 from datetime import datetime
 
 def JudgeStyle(data, node_style):
+    # different node style has different capacity
     if data < node_style[0]:
         return 'r'
     elif data >= node_style[0] and data < node_style[1]:
@@ -18,8 +20,9 @@ def JudgeStyle(data, node_style):
     else:
         return 's'
 
-# %%
 def show_path(config_loc = None, req = None):
+
+    # read path from output.txt
     f = open("output.txt", 'r')
     output = f.read()
     f.close()
@@ -27,8 +30,11 @@ def show_path(config_loc = None, req = None):
     link = output.split("\n")[3]
     node_level = output.split("\n")[1]
     link_level = output.split("\n")[4]
-    # %%
-    def DataPre(style:str, line: str):
+
+
+    def DataPre(style: str, line: str):
+        # string to array
+        # Node/Link/Capacity level: []
         line = line.replace(style+": [", "")
         line = line.replace("]", "")
         line = line.split(", ")
@@ -39,8 +45,8 @@ def show_path(config_loc = None, req = None):
     node_level = DataPre("Capacity level", node_level)
     link_level = DataPre("Capacity level", link_level)
 
-    # %%
     if config_loc != None:
+        # get data from config_file
         config = open(config_loc, "r")
         lines = config.readlines()
 
@@ -62,7 +68,7 @@ def show_path(config_loc = None, req = None):
                 Q_NUM = int(line)
             else:
                 S_NUM = int(line)
-    elif req != None:
+    elif req != None: # get data from request
         # nodeO: 2
         # nodeP: 3
         # nodeQ: 1
@@ -90,12 +96,11 @@ def show_path(config_loc = None, req = None):
         tmp += i
         node_style.append(tmp)
     print(node_style)
-    #%%
 
-    df = pd.read_csv("./link.csv")
+    # read link and capacity generate from flask_main.py
 
+    df = pd.read_csv("link.csv")
     capa = pd.read_csv("capacity.csv")
-    #%%
 
 
     last = df['origin'][link[0]]
@@ -117,7 +122,7 @@ def show_path(config_loc = None, req = None):
             link_dict[key]["link"] = []
             link_dict[key]["capacity"] = []
             print("{}\n\nMethod {}:".format(last,count))
-        # print("{} -> {}".format(df["origin"][idx], df["destination"][idx]))
+        
         style = JudgeStyle(idx, node_style)
         capacity = capa[style][link_level[ind]]
         
@@ -132,6 +137,7 @@ def show_path(config_loc = None, req = None):
 
     print(link_dict)
 
+    # output result to a json file
     try:
         os.mkdir("./path")
     except:
@@ -147,11 +153,7 @@ def show_path(config_loc = None, req = None):
 
     with open("./path/result.json", "w") as jsfile:
         json.dump(link_dict, jsfile)
-if __name__ == "__main__":
-    show_path(sys.argv[1])
-# #%%
-# print(ind)
-# print(len(node))
-# print(len(node_level))
 
-# %%
+if __name__ == "__main__":
+    # if use by command line
+    show_path(sys.argv[1])
