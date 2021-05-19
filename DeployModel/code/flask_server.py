@@ -25,7 +25,7 @@ SW_COUNT = 7000 # virtual switch's initial ID
 WAIT_FOR_CALCULATE = True # wait until topology is set
 
 def run_topo():
-    WAIT_FOR_CALCULATE = True # if there's some error, remove this line.
+    # WAIT_FOR_CALCULATE = True # if there's some error, remove this line.
     global SW_COUNT, WAIT_FOR_CALCULATE
     SW_COUNT += 100
 

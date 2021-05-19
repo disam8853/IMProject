@@ -47,6 +47,7 @@ function getMatrix() {
       matrixToGraph(matrix)
     })
     .catch((err) => {
+      console.log(err)
       throw err
     })
 }
@@ -99,6 +100,7 @@ function getPathedGraph() {
       for (var i = 0; i < linkAndPath.path.length; i++) generatePathedGraph(i, linkAndPath.link, linkAndPath.path[i])
     })
     .catch((err) => {
+      console.log(err)
       throw err
     })
 }
@@ -232,6 +234,7 @@ calPath = async () => {
     data['traffic'] = await getListInputVal(1)
     data['pathCount'] = await getListInputVal(2)
   } catch (err) {
+    console.log(err)
     throw err
   }
 
@@ -252,6 +255,7 @@ calPath = async () => {
       handleCalPath(res)
     })
     .catch((err) => {
+      console.log(err)
       throw err
     })
 }
@@ -270,6 +274,7 @@ showPath = () => {
       console.log(res)
     })
     .catch((err) => {
+      console.log(err)
       throw err
     })
 }
