@@ -9,6 +9,17 @@
       integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
       crossorigin="anonymous"
     />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+      integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+      crossorigin=""
+    />
+    <script
+      src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+      integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+      crossorigin=""
+    ></script>
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-dark">
@@ -34,9 +45,7 @@
             <a class="navbar-link text-light" href="/newentry">New Entry</a>
           </li>
           <li class="nav-item mx-1">
-            <a class="navbar-link text-light" href="/newgroupentry"
-              >New Group Entry</a
-            >
+            <a class="navbar-link text-light" href="/newgroupentry">New Group Entry</a>
           </li>
         </ul>
       </div>
@@ -45,60 +54,28 @@
     <div class="container">
       <div style="margin: 20px">
         <div class="form-group row">
-          <label for="iter-times" class="col-sm-2 col-form-label"
-            >Iteration</label
-          >
+          <label for="iter-times" class="col-sm-2 col-form-label">Iteration</label>
           <div class="col-sm-10">
-            <input
-              type="number"
-              min="0"
-              class="form-control"
-              id="iter-times"
-              placeholder="100"
-            />
+            <input type="number" min="0" class="form-control" id="iter-times" placeholder="100" />
           </div>
         </div>
         <div class="form-group row">
-          <label for="start-node" class="col-sm-2 col-form-label"
-            >Origin Node</label
-          >
+          <label for="start-node" class="col-sm-2 col-form-label">Origin Node</label>
           <div class="col-sm-10">
-            <input
-              type="number"
-              min="0"
-              class="form-control"
-              id="start-node"
-              placeholder="0"
-            />
+            <input type="number" min="0" class="form-control" id="start-node" placeholder="0" />
           </div>
         </div>
         <div class="form-group row">
-          <label for="dest-node" class="col-sm-2 col-form-label"
-            >Destination Node</label
-          >
+          <label for="dest-node" class="col-sm-2 col-form-label">Destination Node</label>
           <div class="col-sm-10">
-            <input
-              type="number"
-              min="0"
-              class="form-control"
-              id="dest-node"
-              placeholder="1"
-            />
+            <input type="number" min="0" class="form-control" id="dest-node" placeholder="1" />
           </div>
         </div>
 
         <div class="form-group row">
-          <label for="int-N" class="col-sm-2 col-form-label"
-            >Number of Users</label
-          >
+          <label for="int-N" class="col-sm-2 col-form-label">Number of Users</label>
           <div class="col-sm-10">
-            <input
-              type="number"
-              min="1"
-              class="form-control"
-              id="int-N"
-              value="1"
-            />
+            <input type="number" min="1" class="form-control" id="int-N" value="1" />
           </div>
         </div>
         <div class="form-group row N-ints-block">
@@ -106,11 +83,7 @@
           <div class="col-sm-10">
             <div class="row">
               <div class="col-sm">
-                <input
-                  type="number"
-                  min="0"
-                  class="form-control N-ints N-ints-1"
-                />
+                <input type="number" min="0" class="form-control N-ints N-ints-1" />
               </div>
             </div>
           </div>
@@ -120,42 +93,38 @@
           <div class="col-sm-10">
             <div class="row">
               <div class="col-sm">
-                <input
-                  type="number"
-                  min="0"
-                  class="form-control N-ints N-ints-two"
-                />
+                <input type="number" min="0" class="form-control N-ints N-ints-two" />
               </div>
             </div>
           </div>
         </div>
 
         <div class="form-group row">
-          <label for="NodeR" class="col-sm-2 col-form-label">Node Type R</label>
+          <label for="NodeR" class="col-sm-2 col-form-label">SDN Router Nodes</label>
           <div class="col-sm-10">
             <input type="number" min="0" class="form-control" id="NodeR" />
           </div>
         </div>
         <div class="form-group row">
-          <label for="NodeO" class="col-sm-2 col-form-label">Node Type O</label>
+          <label for="NodeO" class="col-sm-2 col-form-label">Observer Nodes</label>
           <div class="col-sm-10">
             <input type="number" min="0" class="form-control" id="NodeO" />
           </div>
         </div>
         <div class="form-group row">
-          <label for="NodeP" class="col-sm-2 col-form-label">Node Type P</label>
+          <label for="NodeP" class="col-sm-2 col-form-label">Processor Nodes</label>
           <div class="col-sm-10">
             <input type="number" min="0" class="form-control" id="NodeP" />
           </div>
         </div>
         <div class="form-group row">
-          <label for="NodeQ" class="col-sm-2 col-form-label">Node Type Q</label>
+          <label for="NodeQ" class="col-sm-2 col-form-label">LAN Nodes</label>
           <div class="col-sm-10">
             <input type="number" min="0" class="form-control" id="NodeQ" />
           </div>
         </div>
         <div class="form-group row">
-          <label for="NodeS" class="col-sm-2 col-form-label">Node Type S</label>
+          <label for="NodeS" class="col-sm-2 col-form-label">Cloud SDN Router Nodes</label>
           <div class="col-sm-10">
             <input type="number" min="0" class="form-control" id="NodeS" />
           </div>
@@ -163,28 +132,21 @@
 
         <div class="text-center">
           <button class="btn btn-dark" id="cal-path">Calculate Path</button>
-          <a href="/flow" class="btn btn-outline-dark" id="cal-path"
-            >Show Flow</a
-          >
+          <a href="/flow" class="btn btn-outline-dark" id="cal-path">Show Flow</a>
         </div>
       </div>
       <hr />
 
       <div id="total-graph" class="mt-3 text-center"></div>
 
-      <div
-        class="text-dark d-flex justify-content-center text-center"
-        id="path-text"
-      ></div>
+      <div class="text-dark d-flex justify-content-center text-center" id="path-text"></div>
       <div class="text-center" id="path-info-block"></div>
       <div id="graph" class="mt-3 text-center d-none"></div>
+      <div id="mapid"></div>
     </div>
   </body>
 
-  <script
-    src="https://use.fontawesome.com/releases/v5.15.1/js/all.js"
-    data-auto-replace-svg="nest"
-  ></script>
+  <script src="https://use.fontawesome.com/releases/v5.15.1/js/all.js" data-auto-replace-svg="nest"></script>
   <script
     src="https://code.jquery.com/jquery-3.5.1.js"
     integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="

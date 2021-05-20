@@ -173,7 +173,7 @@ function generatePathedGraph(number, link, path) {
 
 reset = () => {
   $('#total-graph').html('')
-  $('#method-text').html('')
+  $('#path-text').html('')
   $('#graph').html('').addClass('d-none')
 }
 
@@ -313,6 +313,12 @@ $(document).ready(() => {
     $($('.N-ints-block')[0]).html(add_str(1, num))
     $($('.N-ints-block')[1]).html(add_str(2, num))
   })
+
+  const map = L.map('mapid').setView([25.033671, 121.564427], 16)
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '<a href="https://www.openstreetmap.org/">OSM</a>',
+    maxZoom: 18,
+  }).addTo(map)
 })
 
 add_str = (id, num) => {

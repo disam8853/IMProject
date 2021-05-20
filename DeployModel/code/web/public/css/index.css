@@ -1,10 +1,15 @@
 html {
   scroll-behavior: smooth;
+  margin-bottom: 50px;
 }
 
 .graph {
   max-width: 100vw;
   height: 100vh;
+}
+
+#mapid {
+  height: 500px;
 }
 
 .fa-spinner {
@@ -18,7 +23,7 @@ html {
 }
 
 .N-ints {
-  width: 3rem !important;
+  width: 4rem !important;
 }
 
 #flow-entry-container{
