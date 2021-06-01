@@ -1,5 +1,8 @@
 const BACKEND_API = 'http://140.112.106.237:16902/backend'
-var NODES = new Array()
+var NODES = []
+var map,
+  mapNodes = [],
+  mapLayers = []
 
 /////for canvas quality/////
 var PIXEL_RATIO = (function () {
@@ -72,6 +75,17 @@ function createNodes(matrix, CANVASWIDTH, CANVASHEIGHT, ctx) {
     ctx.fillText(nodeName, nodeX, nodeY)
     // console.log(nodeName, nodeX, nodeY)
     NODES.push({ nodeX: nodeX, nodeY: nodeY })
+    // create nodes on map
+    const level = 100
+    const loc = [25.033671 + (Math.random() / level - 0.5 / level), 121.564427 + (Math.random() / level - 0.5 / level)]
+    const c = L.circle(loc, {
+      color: 'black',
+      fillColor: '#000',
+      fillOpacity: 1,
+      radius: 15,
+    }).addTo(map)
+    mapNodes.push(loc)
+    mapLayers.push(c)
   }
 }
 
@@ -83,6 +97,13 @@ function createLines(matrix, CANVASWIDTH, CANVASHEIGHT, ctx) {
         ctx.moveTo(NODES[i - 1].nodeX + 17, NODES[i - 1].nodeY - 5)
         ctx.lineTo(NODES[j].nodeX + 17, NODES[j].nodeY - 5)
         ctx.stroke()
+
+        var latlngs = [
+          [mapNodes[i - 1][0], mapNodes[i - 1][1]],
+          [mapNodes[j][0], mapNodes[j][1]],
+        ]
+        const l = L.polyline(latlngs, { color: 'red', weight: 2 }).addTo(map)
+        mapLayers.push(l)
       }
     }
   }
@@ -156,26 +177,22 @@ function generatePathedGraph(number, link, path) {
   }
 }
 
-// $('#show-method').click(async () => {
-//   try {
-//     await getMatrix() // initial graph
-//     getPathedGraph() // path added
-//   } catch (err) {
-//     alert(err.message)
-//   }
-// })
-
-// $('#close-method').click(function () {
-//   for (var i = 0; i < $('#graph').children().length; i++)
-//     $('#graph').children().detach()
-//   NODES = new Array()
-// })
-
 reset = () => {
   $('#total-graph').html('')
   $('#path-text').html('')
   $('#graph').html('').addClass('d-none')
+  NODES = []
+  mapNodes = []
+  mapLayers.map((l) => {
+    l.remove()
+  })
+  mapLayers = []
 }
+
+$('#fetch-path').click(() => {
+  reset()
+  showPath()
+})
 
 $(document).on('keypress', function (e) {
   // press enter
@@ -199,13 +216,6 @@ doCalPath = async () => {
       transform: 'translate(-50%, -50%)',
     },
   })
-
-  // data = {
-  //   iter_times: $('#iter-times')[0].value,
-  //   startID: $('#start-node')[0].value,
-  //   destID: $('#dest-node')[0].value,
-  //   config_loc: $('#config-loc')[0].value,
-  // }
 
   try {
     await calPath()
@@ -307,6 +317,7 @@ showGraphById = (id) => {
   $($('#graph canvas')[id]).fadeIn()
 }
 
+// init function
 $(document).ready(() => {
   $('#int-N').on('input', function () {
     const num = $(this).val()
@@ -314,7 +325,7 @@ $(document).ready(() => {
     $($('.N-ints-block')[1]).html(add_str(2, num))
   })
 
-  const map = L.map('mapid').setView([25.033671, 121.564427], 16)
+  map = L.map('mapid').setView([25.033671, 121.564427], 16)
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '<a href="https://www.openstreetmap.org/">OSM</a>',
     maxZoom: 18,

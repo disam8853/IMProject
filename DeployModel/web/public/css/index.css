@@ -9,7 +9,10 @@ html {
 }
 
 #mapid {
-  height: 500px;
+  height: 600px;
+  width: 600px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .fa-spinner {
@@ -26,20 +29,20 @@ html {
   width: 4rem !important;
 }
 
-#flow-entry-container{
+#flow-entry-container {
   width: 100%;
 }
 
-#group-entry-container{
+#group-entry-container {
   width: 100%;
 }
 
-#flow-entry td{
+#flow-entry td {
   max-width: 10%;
   word-break: break-word;
 }
 
-#group-entry td{
+#group-entry td {
   max-width: 10%;
   word-break: break-word;
 }
