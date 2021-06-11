@@ -2,7 +2,8 @@ const BACKEND_API = 'http://140.112.106.237:16902/backend'
 var NODES = []
 var map,
   mapNodes = [],
-  mapLayers = []
+  mapLayers = [],
+  mapPathLayers = []
 
 /////for canvas quality/////
 var PIXEL_RATIO = (function () {
@@ -118,7 +119,27 @@ function getPathedGraph() {
     .then((response) => response.json())
     .then((linkAndPath) => {
       // console.log(linkAndPath.path)
-      for (var i = 0; i < linkAndPath.path.length; i++) generatePathedGraph(i, linkAndPath.link, linkAndPath.path[i])
+      for (var i = 0; i < linkAndPath.path.length; i++) {
+        generatePathedGraph(i, linkAndPath.link, linkAndPath.path[i])
+
+        $('#path-text').append(`<p class="path-item btn btn-outline-dark mr-3">Path ${i + 1}</p>`)
+
+        // let txt = ''
+        // for (const y of x.paths) {
+        //   txt += y.capacity === '' ? y.link : `${y.link} =(${y.capacity})> `
+        // }
+        // $('#path-info-block').append(`<p class="m-0 path-info">${txt}</p>`)
+        $('#path-info-block p').hide()
+      }
+
+      $('.path-item').click(function () {
+        const id = $('.path-item').index(this)
+        $('#path-info-block p').hide()
+        $($('#path-info-block p')[id]).show()
+        showGraphById(id)
+        location.hash = '#'
+        location.hash = '#path-info-block'
+      })
     })
     .catch((err) => {
       console.log(err)
