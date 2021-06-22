@@ -99,11 +99,11 @@ function createLines(matrix, CANVASWIDTH, CANVASHEIGHT, ctx) {
         ctx.lineTo(NODES[j].nodeX + 17, NODES[j].nodeY - 5)
         ctx.stroke()
 
-        var latlngs = [
+        const latlngs = [
           [mapNodes[i - 1][0], mapNodes[i - 1][1]],
           [mapNodes[j][0], mapNodes[j][1]],
         ]
-        const l = L.polyline(latlngs, { color: 'red', weight: 2 }).addTo(map)
+        const l = L.polyline(latlngs, { color: 'red', weight: 2, opacity: 0.3 }).addTo(map)
         mapLayers.push(l)
       }
     }
@@ -123,12 +123,6 @@ function getPathedGraph() {
         generatePathedGraph(i, linkAndPath.link, linkAndPath.path[i])
 
         $('#path-text').append(`<p class="path-item btn btn-outline-dark mr-3">Path ${i + 1}</p>`)
-
-        // let txt = ''
-        // for (const y of x.paths) {
-        //   txt += y.capacity === '' ? y.link : `${y.link} =(${y.capacity})> `
-        // }
-        // $('#path-info-block').append(`<p class="m-0 path-info">${txt}</p>`)
         $('#path-info-block p').hide()
       }
 
@@ -137,8 +131,22 @@ function getPathedGraph() {
         $('#path-info-block p').hide()
         $($('#path-info-block p')[id]).show()
         showGraphById(id)
-        location.hash = '#'
         location.hash = '#path-info-block'
+        mapPathLayers.map((l) => {
+          l.remove()
+        })
+        mapPathLayers = []
+        // add path
+        linkAndPath.path[id].link.forEach((el, idx) => {
+          if (idx !== linkAndPath.path[id].link.length - 1) {
+            const latlngs = [
+              [mapNodes[el][0], mapNodes[el][1]],
+              [mapNodes[linkAndPath.path[id].link[idx + 1]][0], mapNodes[linkAndPath.path[id].link[idx + 1]][1]],
+            ]
+            const l = L.polyline(latlngs, { color: 'blue', weight: 2 }).addTo(map)
+            mapPathLayers.push(l)
+          }
+        })
       })
     })
     .catch((err) => {
@@ -208,6 +216,10 @@ reset = () => {
     l.remove()
   })
   mapLayers = []
+  mapPathLayers.map((l) => {
+    l.remove()
+  })
+  mapPathLayers = []
 }
 
 $('#fetch-path').click(() => {
