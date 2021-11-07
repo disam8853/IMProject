@@ -538,19 +538,26 @@ class Catknight(MininetTopo):
         for sw in sws:
             resp = self.s.delete(
                 f'https://192.168.11.232/api/openflow/switch/{sw["id"]}/')
-            printlog(f"delete sw {sw['name']}: {resp.text}")
+            print(f"delete sw {sw['name']}: {resp.text}")
         time.sleep(5)
         resp = self.s.get(f'https://192.168.11.232/api/serve/rewrite_config')
-        printlog(f"rewrite_config:")
-        printlog(resp.text)
+        print(f"rewrite_config:")
+        print(resp.text)
 
-        logf.close()
+        sws = self.s.get('https://192.168.11.232/api/openflow/link/').json()
+        for sw in sws:
+            resp = self.s.delete(
+                f'https://192.168.11.232/api/openflow/link/{sw["id"]}/')
+            print(f"delete link {sw['id']}: {resp.text}")
+        time.sleep(5)
+        resp = self.s.get(f'https://192.168.11.232/api/serve/rewrite_config')
+        print(f"rewrite_config:")
+        print(resp.text)
 
 
 def main():
-    topo = Catknight(auth=('sdbox', 'sdbox'))
-    net = topo.test()
-    CLI(net)
+    topo = Catknight(auth=('sdbox', 'sdbox'), clean=False)
+    topo.deleteAll()
 
 
 if __name__ == '__main__':
