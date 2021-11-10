@@ -3,6 +3,7 @@ import pandas as pd
 import json
 import requests
 import urllib3
+import sys
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 ETH_IPV4 = 2048
@@ -41,6 +42,7 @@ if r_switch.status_code == requests.codes.ok:
     f = open('./data/flowentry.txt', 'w')
     f.close()
     params = []
+    includedFlowEntry = []
     for i in range(len(decision)):
         path = decision.loc[i][3]
         path = path.split('-')
@@ -59,10 +61,14 @@ if r_switch.status_code == requests.codes.ok:
             output_port = str(int(switch_adjacency_matrix[node1][node2]))
             origin = decision.loc[i][1]
             # origin_ip = switch_data[origin-1]['ip']
-            origin_ip = "10.0.1." + path[n]
+            origin_ip = "10.0.1." + path[n].strip()
             destination = decision.loc[i][2]
             # destination_ip = switch_data[destination-1]['ip']
-            destination_ip = "10.0.1." + path[n+1]
+            destination_ip = "10.0.1." + path[n+1].strip()
+            if [origin_ip, destination_ip] in includedFlowEntry:
+                continue
+            else:
+                includedFlowEntry.append([origin_ip, destination_ip])
             if link_priority[n] == 1:
                 priority = 900
             elif link_priority[n] == 2:
@@ -75,20 +81,29 @@ if r_switch.status_code == requests.codes.ok:
             params.append({"sw": switch_id, "priority": priority, "match": {"eth_type": ETH_ARP, "arp_spa": origin_ip, "arp_tpa": destination_ip}, "actions": [
                 {"type": "OUTPUT", "port": output_port}], "groups": 1, "table_id": 1})
 
-        if i > 2:
-            break
+        # 要建立多少path
+        # if i > 2:
+        #     break
 
     headers = {'Content-Type': 'application/json'}
     r_add_flowentry = requests.post('https://140.112.106.237:16904/api/openflow/flowentry/', auth=(
         'sdbox', 'sdbox'), verify=False, headers=headers, json=params)
-    # print(params)
-    response = json.loads(r_add_flowentry.text)
-    # 將新增的 flow entry 記錄在文字檔中
-    f = open('./data/flowentry.txt', 'a')
-    for res in response:
-        f.write(res["id"] + "\n")
-    f.close()
-    print('all flow entries are created!')
+    try:
+        response = json.loads(r_add_flowentry.text)
+        # 將新增的 flow entry 記錄在文字檔中
+        f = open('./data/flowentry.txt', 'a')
+        for res in response:
+            try:
+                f.write(res["id"] + "\n")
+            except:
+                print(res)
+        f.close()
+        print('all flow entries are created!')
+    except:
+        f = open('./data/flowentry.txt', 'a')
+        f.write(r_add_flowentry.text)
+        f.close()
+        sys.exit()
     # 執行 mininet 封包轉發
 
 
