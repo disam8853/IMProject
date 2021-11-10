@@ -3,6 +3,9 @@ import pandas as pd
 import json
 import requests
 
+ETH_IPV4 = 2048
+ETH_ARP = 2054
+
 
 def create_switch_adjacency_matrix():
     switch_adjacency_matrix = np.zeros((21, 21))
@@ -22,11 +25,11 @@ def create_switch_adjacency_matrix():
     return switch_adjacency_matrix
 
 
-switch_adjacency_matrix = create_switch_adjacency_matrix()
 r_switch = requests.get('https://140.112.106.237:16904/api/openflow/switch',
                         auth=('sdbox', 'sdbox'), verify=False)
 r_link = requests.get('https://140.112.106.237:16904/api/openflow/link',
                       auth=('sdbox', 'sdbox'), verify=False)
+switch_adjacency_matrix = create_switch_adjacency_matrix()
 
 if r_switch.status_code == requests.codes.ok:
     print("OK")
@@ -62,8 +65,10 @@ if r_switch.status_code == requests.codes.ok:
             elif link_priority[n] == 3:
                 priority = 700
             headers = {'Content-Type': 'application/json'}
-            params = [{"sw": switch_id, "priority": priority, "match": {"ipv4_src": origin_ip, "ipv4_dst": destination_ip}, "actions": [
+            params = [{"sw": switch_id, "priority": priority, "match": {"eth_type": ETH_IPV4, "ipv4_src": origin_ip, "ipv4_dst": destination_ip}, "actions": [
                 {"type": "OUTPUT", "port": output_port}], "groups": 1, "table_id": 1}]
+            params.append({"sw": switch_id, "priority": priority, "match": {"eth_type": ETH_ARP, "arp_spa": origin_ip, "arp_tpa": destination_ip}, "actions": [
+                {"type": "OUTPUT", "port": output_port}], "groups": 1, "table_id": 1})
             r_add_flowentry = requests.post('https://140.112.106.237:16904/api/openflow/flowentry/', auth=(
                 'sdbox', 'sdbox'), verify=False, headers=headers, json=params)
             print(params)
