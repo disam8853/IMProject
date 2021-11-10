@@ -2,6 +2,8 @@ import numpy as np
 import pandas as pd
 import json
 import requests
+import urllib3
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 ETH_IPV4 = 2048
 ETH_ARP = 2054
@@ -100,4 +102,5 @@ for flow_id in f.readlines():
     flow_id = flow_id.strip()
     r_del_flowentry = requests.delete(
         'https://140.112.106.237:16904/api/openflow/flowentry/'+flow_id+'/', auth=('sdbox', 'sdbox'), verify=False)
+    print(f'flow entry {flow_id} is deleted')
 f.close()
