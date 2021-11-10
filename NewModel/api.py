@@ -34,12 +34,13 @@ r_link = requests.get('https://140.112.106.237:16904/api/openflow/link',
 switch_adjacency_matrix = create_switch_adjacency_matrix()
 
 if r_switch.status_code == requests.codes.ok:
-    print("OK")
+    print("GET request is OK")
     switch_data = json.loads(r_switch.text)
     link_data = json.loads(r_link.text)
     decision = pd.read_excel('./data/decision.xlsx', sheet_name='FCFS')
     f = open('./data/flowentry.txt', 'w')
     f.close()
+    params = []
     for i in range(len(decision)):
         path = decision.loc[i][3]
         path = path.split('-')
@@ -48,42 +49,48 @@ if r_switch.status_code == requests.codes.ok:
             link_priority = link_priority.split(',')
         else:
             link_priority = [link_priority]
-        print(path)
-        print(link_priority)
+        print(
+            f'flow entry: {"->".join(str(x).strip() for x in path)}, priority: {"->".join(str(x).strip() for x in link_priority)} is creating')
         for n in range(len(path)-1):
             node1 = int(path[n])
             node2 = int(path[n+1])
-            print(node1, ' to ', node2, ' on ', link_priority[n])
+            # print(node1, ' to ', node2, ' on ', link_priority[n])
             switch_id = switch_data[node1-1]['id']
             output_port = str(int(switch_adjacency_matrix[node1][node2]))
             origin = decision.loc[i][1]
-            origin_ip = switch_data[origin-1]['ip']
+            # origin_ip = switch_data[origin-1]['ip']
+            origin_ip = "10.0.1." + path[n]
             destination = decision.loc[i][2]
-            destination_ip = switch_data[destination-1]['ip']
+            # destination_ip = switch_data[destination-1]['ip']
+            destination_ip = "10.0.1." + path[n+1]
             if link_priority[n] == 1:
                 priority = 900
             elif link_priority[n] == 2:
                 priority = 800
             elif link_priority[n] == 3:
                 priority = 700
-            headers = {'Content-Type': 'application/json'}
-            params = [{"sw": switch_id, "priority": priority, "match": {"eth_type": ETH_IPV4, "ipv4_src": origin_ip, "ipv4_dst": destination_ip}, "actions": [
-                {"type": "OUTPUT", "port": output_port}], "groups": 1, "table_id": 1}]
+
+            params.append({"sw": switch_id, "priority": priority, "match": {"eth_type": ETH_IPV4, "ipv4_src": origin_ip, "ipv4_dst": destination_ip}, "actions": [
+                {"type": "OUTPUT", "port": output_port}], "groups": 1, "table_id": 1})
             params.append({"sw": switch_id, "priority": priority, "match": {"eth_type": ETH_ARP, "arp_spa": origin_ip, "arp_tpa": destination_ip}, "actions": [
                 {"type": "OUTPUT", "port": output_port}], "groups": 1, "table_id": 1})
-            r_add_flowentry = requests.post('https://140.112.106.237:16904/api/openflow/flowentry/', auth=(
-                'sdbox', 'sdbox'), verify=False, headers=headers, json=params)
-            print(params)
-            response = json.loads(r_add_flowentry.text)
-            # 將新增的 flow entry 記錄在文字檔中
-            flow_id = response[0]['id']
-            f = open('./data/flowentry.txt', 'a')
-            f.write(flow_id + "\n")
-            f.close()
 
-            # 執行 mininet 封包轉發
+        if i > 2:
+            break
 
-        break
+    headers = {'Content-Type': 'application/json'}
+    r_add_flowentry = requests.post('https://140.112.106.237:16904/api/openflow/flowentry/', auth=(
+        'sdbox', 'sdbox'), verify=False, headers=headers, json=params)
+    # print(params)
+    response = json.loads(r_add_flowentry.text)
+    # 將新增的 flow entry 記錄在文字檔中
+    f = open('./data/flowentry.txt', 'a')
+    for res in response:
+        f.write(res["id"] + "\n")
+    f.close()
+    print('all flow entries are created!')
+    # 執行 mininet 封包轉發
+
 
 else:
     print(r_switch.status_code, "request error!")
@@ -96,6 +103,8 @@ for flow in flowentry:
     if flow['priority'] == 900:
         print("YES")
 
+print("press any key to delete all flow entry: ", end='')
+input()
 # 刪除此次決策所設定的 flow entry
 f = open('./data/flowentry.txt', 'r')
 for flow_id in f.readlines():
