@@ -48,7 +48,7 @@ def addFlowEntry(switches):
             continue
         break
 
-    print('Add flow entry')
+    print('Add flow entry', end='...')
     data = []
     for i in range(1, NUM_NODES+1):
         nodeName = str(i)
@@ -87,6 +87,7 @@ def addFlowEntry(switches):
             'is_permanent': True
         })
     s.post('https://192.168.11.232/api/openflow/flowentry/', json=data)
+    print('DONE!')
 
 
 def main():

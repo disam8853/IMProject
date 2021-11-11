@@ -12,7 +12,7 @@ ETH_ARP = 2054
 
 def create_switch_adjacency_matrix():
     switch_adjacency_matrix = np.zeros((21, 21))
-    r_link = requests.get('https://140.112.106.237:16904/api/openflow/link',
+    r_link = requests.get('https://192.168.11.232/api/openflow/link',
                           auth=('sdbox', 'sdbox'), verify=False)
     if r_switch.status_code == requests.codes.ok:
         link_data = json.loads(r_link.text)
@@ -28,9 +28,9 @@ def create_switch_adjacency_matrix():
     return switch_adjacency_matrix
 
 
-r_switch = requests.get('https://140.112.106.237:16904/api/openflow/switch',
+r_switch = requests.get('https://192.168.11.232/api/openflow/switch',
                         auth=('sdbox', 'sdbox'), verify=False)
-r_link = requests.get('https://140.112.106.237:16904/api/openflow/link',
+r_link = requests.get('https://192.168.11.232/api/openflow/link',
                       auth=('sdbox', 'sdbox'), verify=False)
 switch_adjacency_matrix = create_switch_adjacency_matrix()
 
@@ -38,7 +38,8 @@ if r_switch.status_code == requests.codes.ok:
     print("GET request is OK")
     switch_data = json.loads(r_switch.text)
     link_data = json.loads(r_link.text)
-    decision = pd.read_excel('./data/decision.xlsx', sheet_name='FCFS')
+    decision = pd.read_excel('./data/decision.xlsx',
+                             sheet_name='FCFS', engine='openpyxl')
     f = open('./data/flowentry.txt', 'w')
     f.close()
     params = []
@@ -77,16 +78,16 @@ if r_switch.status_code == requests.codes.ok:
                 priority = 700
 
             params.append({"sw": switch_id, "priority": priority, "match": {"eth_type": ETH_IPV4, "ipv4_src": origin_ip, "ipv4_dst": destination_ip}, "actions": [
-                {"type": "OUTPUT", "port": output_port}], "groups": 1, "table_id": 1})
+                {"type": "OUTPUT", "port": output_port}], "groups": 1, "table_id": 2})
             params.append({"sw": switch_id, "priority": priority, "match": {"eth_type": ETH_ARP, "arp_spa": origin_ip, "arp_tpa": destination_ip}, "actions": [
-                {"type": "OUTPUT", "port": output_port}], "groups": 1, "table_id": 1})
+                {"type": "OUTPUT", "port": output_port}], "groups": 1, "table_id": 2})
 
         # 要建立多少path
         # if i > 2:
         #     break
 
     headers = {'Content-Type': 'application/json'}
-    r_add_flowentry = requests.post('https://140.112.106.237:16904/api/openflow/flowentry/', auth=(
+    r_add_flowentry = requests.post('https://192.168.11.232/api/openflow/flowentry/', auth=(
         'sdbox', 'sdbox'), verify=False, headers=headers, json=params)
     try:
         response = json.loads(r_add_flowentry.text)
@@ -112,19 +113,19 @@ else:
 
 # 查看flow entry是否有正確新增
 r_flowentry = requests.get(
-    'https://140.112.106.237:16904/api/openflow/flowentry', auth=('sdbox', 'sdbox'), verify=False)
+    'https://192.168.11.232/api/openflow/flowentry', auth=('sdbox', 'sdbox'), verify=False)
 flowentry = json.loads(r_flowentry.text)
 for flow in flowentry:
     if flow['priority'] == 900:
         print("YES")
 
-print("press any key to delete all flow entry: ", end='')
+print("press any key to delete all flow entry...", end='')
 input()
 # 刪除此次決策所設定的 flow entry
 f = open('./data/flowentry.txt', 'r')
 for flow_id in f.readlines():
     flow_id = flow_id.strip()
     r_del_flowentry = requests.delete(
-        'https://140.112.106.237:16904/api/openflow/flowentry/'+flow_id+'/', auth=('sdbox', 'sdbox'), verify=False)
+        'https://192.168.11.232/api/openflow/flowentry/'+flow_id+'/', auth=('sdbox', 'sdbox'), verify=False)
     print(f'flow entry {flow_id} is deleted')
 f.close()
