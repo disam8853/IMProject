@@ -91,7 +91,7 @@ if r_switch.status_code == requests.codes.ok:
         # 要建立多少path
         # if i > 2:
         #     break
-
+    print(f'{len(params)} flow entries are creating', end='...')
     headers = {'Content-Type': 'application/json'}
     r_add_flowentry = requests.post('https://192.168.11.232/api/openflow/flowentry/', auth=(
         'sdbox', 'sdbox'), verify=False, headers=headers, json=params)
@@ -105,7 +105,7 @@ if r_switch.status_code == requests.codes.ok:
             except:
                 print(res)
         f.close()
-        print('all flow entries are created!')
+        print('DONE!')
     except:
         f = open('./data/flowentry.txt', 'a')
         f.write(r_add_flowentry.text)
@@ -118,12 +118,12 @@ else:
     print(r_switch.status_code, "request error!")
 
 # 查看flow entry是否有正確新增
-r_flowentry = requests.get(
-    'https://192.168.11.232/api/openflow/flowentry', auth=('sdbox', 'sdbox'), verify=False)
-flowentry = json.loads(r_flowentry.text)
-for flow in flowentry:
-    if flow['priority'] == 900:
-        print("YES")
+# r_flowentry = requests.get(
+#     'https://192.168.11.232/api/openflow/flowentry/', auth=('sdbox', 'sdbox'), verify=False)
+# flowentry = json.loads(r_flowentry.text)
+# for flow in flowentry:
+#     if flow['priority'] == 900:
+#         print("YES")
 
 print("press any key to delete all flow entry...", end='')
 input()
