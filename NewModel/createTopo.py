@@ -6,6 +6,7 @@ from mininet.log import setLogLevel
 from mininet.link import TCLink
 from mininet.util import macColonHex
 import pandas as pd
+import pickle
 
 import time
 import requests
@@ -90,6 +91,11 @@ def addFlowEntry(switches):
     print('DONE!')
 
 
+def save_obj(obj, name):
+    with open('./data/' + name + '.pkl', 'wb') as f:
+        pickle.dump(obj, f, pickle.HIGHEST_PROTOCOL)
+
+
 def main():
     link_df = pd.read_excel('data/topology.xlsx',
                             engine='openpyxl', sheet_name='link', index_col=0)
@@ -98,9 +104,11 @@ def main():
     net = Mininet(topo=None, build=False, autoSetMacs=True)
     print('create switches: ')
     switches = {}
+    switch_adjacency_matrix = {}
     ip = 1
     for i in range(1, NUM_NODES+1):
         nodeName = str(i)
+        switch_adjacency_matrix[nodeName] = {}
         print('#s' + nodeName)
         switches[nodeName] = {}
         switches[nodeName]['obj'] = net.addSwitch('s' + nodeName, dpid=int2dpid(
@@ -124,6 +132,8 @@ def main():
 
         net.addLink(fromNode['obj'], toNode['obj'],
                     port1=fromNode['unused'], port2=toNode['unused'], bw=bw)
+        switch_adjacency_matrix[node1Name][node2Name] = fromNode['unused']
+        switch_adjacency_matrix[node2Name][node1Name] = toNode['unused']
 
         fromNode['unused'] = fromNode['unused'] + 1
         toNode['unused'] = toNode['unused'] + 1
@@ -138,6 +148,7 @@ def main():
     for s in net.switches:
         s.start([ctrl_1])
 
+    save_obj(switch_adjacency_matrix, 'switch-adjacency-matrix')
     addFlowEntry(switches)
 
     CLI(net)

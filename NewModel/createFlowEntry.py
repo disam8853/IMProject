@@ -4,10 +4,16 @@ import json
 import requests
 import urllib3
 import sys
+import pickle
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 ETH_IPV4 = 2048
 ETH_ARP = 2054
+
+
+def load_obj(name):
+    with open('./data/' + name + '.pkl', 'rb') as f:
+        return pickle.load(f)
 
 
 def create_switch_adjacency_matrix():
@@ -32,7 +38,7 @@ r_switch = requests.get('https://192.168.11.232/api/openflow/switch',
                         auth=('sdbox', 'sdbox'), verify=False)
 r_link = requests.get('https://192.168.11.232/api/openflow/link',
                       auth=('sdbox', 'sdbox'), verify=False)
-switch_adjacency_matrix = create_switch_adjacency_matrix()
+switch_adjacency_matrix = load_obj('switch-adjacency-matrix')
 
 if r_switch.status_code == requests.codes.ok:
     print("GET request is OK")
@@ -59,7 +65,7 @@ if r_switch.status_code == requests.codes.ok:
             node2 = int(path[n+1])
             # print(node1, ' to ', node2, ' on ', link_priority[n])
             switch_id = switch_data[node1-1]['id']
-            output_port = str(int(switch_adjacency_matrix[node1][node2]))
+            output_port = switch_adjacency_matrix[str(node1)][str(node2)]
             origin = decision.loc[i][1]
             # origin_ip = switch_data[origin-1]['ip']
             origin_ip = "10.0.1." + path[n].strip()

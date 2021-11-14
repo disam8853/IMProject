@@ -7,3 +7,4 @@ output.txt
 node_modules
 *.log
 flowentry.txt
+switch-adjacency-matrix.pkl
