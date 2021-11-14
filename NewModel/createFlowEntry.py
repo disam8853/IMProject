@@ -78,9 +78,9 @@ if r_switch.status_code == requests.codes.ok:
                 priority = 700
 
             params.append({"sw": switch_id, "priority": priority, "match": {"eth_type": ETH_IPV4, "ipv4_src": origin_ip, "ipv4_dst": destination_ip}, "actions": [
-                {"type": "OUTPUT", "port": output_port}], "groups": 1, "table_id": 2})
+                {"type": "OUTPUT", "port": output_port}], "groups": 1, "table_id": 1})
             params.append({"sw": switch_id, "priority": priority, "match": {"eth_type": ETH_ARP, "arp_spa": origin_ip, "arp_tpa": destination_ip}, "actions": [
-                {"type": "OUTPUT", "port": output_port}], "groups": 1, "table_id": 2})
+                {"type": "OUTPUT", "port": output_port}], "groups": 1, "table_id": 1})
 
         # 要建立多少path
         # if i > 2:
