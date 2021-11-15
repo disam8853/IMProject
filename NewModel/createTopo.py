@@ -37,7 +37,7 @@ def addFlowEntry(switches):
         resp = s.get(
             'https://192.168.11.232/api/openflow/switch/').json()
         print('Get switch info')
-        print(resp)
+        # print(resp)
         try:
             for i in range(1, NUM_NODES+1):
                 nodeName = str(i)

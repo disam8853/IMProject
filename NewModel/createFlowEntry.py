@@ -16,22 +16,27 @@ def load_obj(name):
         return pickle.load(f)
 
 
-def create_switch_adjacency_matrix():
-    switch_adjacency_matrix = np.zeros((21, 21))
-    r_link = requests.get('https://192.168.11.232/api/openflow/link',
-                          auth=('sdbox', 'sdbox'), verify=False)
-    if r_switch.status_code == requests.codes.ok:
-        link_data = json.loads(r_link.text)
-        for data in link_data:
-            port = data['port']
-            node1 = port[0]['switch_dpid']
-            node1_port = port[0]['port_no']
-            node2 = port[1]['switch_dpid']
-            node2_port = port[1]['port_no']
-            switch_adjacency_matrix[node1][node2] = node1_port
-            switch_adjacency_matrix[node2][node1] = node2_port
-
-    return switch_adjacency_matrix
+def postFlowEntry(params):
+    print(f'{len(params)} flow entries are creating', end='...')
+    headers = {'Content-Type': 'application/json'}
+    r_add_flowentry = requests.post('https://192.168.11.232/api/openflow/flowentry/', auth=(
+        'sdbox', 'sdbox'), verify=False, headers=headers, json=params)
+    try:
+        response = json.loads(r_add_flowentry.text)
+        # 將新增的 flow entry 記錄在文字檔中
+        f = open('./data/flowentry.txt', 'a')
+        for res in response:
+            try:
+                f.write(res["id"] + "\n")
+            except:
+                print(res)
+        f.close()
+        print('DONE!')
+    except:
+        f = open('./data/flowentry.txt', 'a')
+        f.write(r_add_flowentry.text)
+        f.close()
+        sys.exit()
 
 
 r_switch = requests.get('https://192.168.11.232/api/openflow/switch',
@@ -60,22 +65,21 @@ if r_switch.status_code == requests.codes.ok:
             link_priority = [link_priority]
         print(
             f'flow entry: {"->".join(str(x).strip() for x in path)}, priority: {"->".join(str(x).strip() for x in link_priority)} is creating')
+        origin = decision.loc[i][1]
+        origin_ip = "10.0.1." + str(origin).strip()
+        destination = decision.loc[i][2]
+        destination_ip = "10.0.1." + str(destination).strip()
         for n in range(len(path)-1):
             node1 = int(path[n])
             node2 = int(path[n+1])
             # print(node1, ' to ', node2, ' on ', link_priority[n])
             switch_id = switch_data[node1-1]['id']
             output_port = switch_adjacency_matrix[str(node1)][str(node2)]
-            origin = decision.loc[i][1]
-            # origin_ip = switch_data[origin-1]['ip']
-            origin_ip = "10.0.1." + path[n].strip()
-            destination = decision.loc[i][2]
-            # destination_ip = switch_data[destination-1]['ip']
-            destination_ip = "10.0.1." + path[n+1].strip()
-            if [origin_ip, destination_ip] in includedFlowEntry:
+            if [switch_id, origin_ip, destination_ip] in includedFlowEntry:
                 continue
             else:
-                includedFlowEntry.append([origin_ip, destination_ip])
+                includedFlowEntry.append(
+                    [switch_id, origin_ip, destination_ip])
             if link_priority[n] == 1:
                 priority = 900
             elif link_priority[n] == 2:
@@ -91,26 +95,10 @@ if r_switch.status_code == requests.codes.ok:
         # 要建立多少path
         # if i > 2:
         #     break
-    print(f'{len(params)} flow entries are creating', end='...')
-    headers = {'Content-Type': 'application/json'}
-    r_add_flowentry = requests.post('https://192.168.11.232/api/openflow/flowentry/', auth=(
-        'sdbox', 'sdbox'), verify=False, headers=headers, json=params)
-    try:
-        response = json.loads(r_add_flowentry.text)
-        # 將新增的 flow entry 記錄在文字檔中
-        f = open('./data/flowentry.txt', 'a')
-        for res in response:
-            try:
-                f.write(res["id"] + "\n")
-            except:
-                print(res)
-        f.close()
-        print('DONE!')
-    except:
-        f = open('./data/flowentry.txt', 'a')
-        f.write(r_add_flowentry.text)
-        f.close()
-        sys.exit()
+        if len(params) > 400:
+            postFlowEntry(params)
+            params = []
+    postFlowEntry(params)
     # 執行 mininet 封包轉發
 
 
