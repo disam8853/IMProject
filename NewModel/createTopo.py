@@ -151,6 +151,12 @@ def main():
     save_obj(switch_adjacency_matrix, 'switch-adjacency-matrix')
     addFlowEntry(switches)
 
+    for i in range(1, NUM_NODES+1):
+        for j in range(1, NUM_NODES+1):
+            if i != j:
+                switches[str(i)]['host'].cmd(
+                    f'ping 10.0.1.{str(j)} &> ./log/h{str(i)}-h{str(j)}.log &')
+
     CLI(net)
     net.stop()
 

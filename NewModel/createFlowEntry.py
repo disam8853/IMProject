@@ -92,26 +92,13 @@ if r_switch.status_code == requests.codes.ok:
             params.append({"sw": switch_id, "priority": priority, "match": {"eth_type": ETH_ARP, "arp_spa": origin_ip, "arp_tpa": destination_ip}, "actions": [
                 {"type": "OUTPUT", "port": output_port}], "groups": 1, "table_id": 1})
 
-        # 要建立多少path
-        # if i > 2:
-        #     break
         if len(params) > 400:
             postFlowEntry(params)
             params = []
     postFlowEntry(params)
-    # 執行 mininet 封包轉發
-
-
 else:
     print(r_switch.status_code, "request error!")
 
-# 查看flow entry是否有正確新增
-# r_flowentry = requests.get(
-#     'https://192.168.11.232/api/openflow/flowentry/', auth=('sdbox', 'sdbox'), verify=False)
-# flowentry = json.loads(r_flowentry.text)
-# for flow in flowentry:
-#     if flow['priority'] == 900:
-#         print("YES")
 
 print("press any key to delete all flow entry...", end='')
 input()
