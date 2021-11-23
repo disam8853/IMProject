@@ -1,3 +1,4 @@
+import pathlib
 import numpy as np
 import pandas as pd
 import json
@@ -12,7 +13,7 @@ ETH_ARP = 2054
 
 
 def load_obj(name):
-    with open('./data/' + name + '.pkl', 'rb') as f:
+    with open(f'{pathlib.Path(__file__).parent.resolve()}/data/{name}.pkl', 'rb') as f:
         return pickle.load(f)
 
 
@@ -33,7 +34,8 @@ def postFlowEntry(params):
         f.close()
         print('DONE!')
     except:
-        f = open('./data/flowentry.txt', 'a')
+        f = open(
+            f'{pathlib.Path(__file__).parent.resolve()}/data/flowentry.txt', 'a')
         f.write(r_add_flowentry.text)
         f.close()
         sys.exit()
@@ -49,7 +51,8 @@ def createFE(sheetName):
         switch_data = json.loads(r_switch.text)
         decision = pd.read_excel('./data/decision.xlsx',
                                  sheet_name=sheetName, engine='openpyxl')
-        f = open('./data/flowentry.txt', 'w')
+        f = open(
+            f'{pathlib.Path(__file__).parent.resolve()}/data/flowentry.txt', 'w')
         f.close()
         params = []
         includedFlowEntry = []
@@ -100,7 +103,7 @@ def createFE(sheetName):
     print("press any key to delete all flow entry...", end='')
     input()
     # 刪除此次決策所設定的 flow entry
-    f = open('./data/flowentry.txt', 'r')
+    f = open(f'{pathlib.Path(__file__).parent.resolve()}/data/flowentry.txt', 'r')
     for flow_id in f.readlines():
         flow_id = flow_id.strip()
         requests.delete(

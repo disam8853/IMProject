@@ -7,6 +7,7 @@ from mininet.link import TCLink
 from mininet.util import macColonHex
 import pandas as pd
 import pickle
+import pathlib
 
 import time
 import requests
@@ -92,12 +93,12 @@ def addFlowEntry(switches):
 
 
 def save_obj(obj, name):
-    with open('./data/' + name + '.pkl', 'wb') as f:
+    with open(f'{pathlib.Path(__file__).parent.resolve()}/data/{name}.pkl', 'wb') as f:
         pickle.dump(obj, f, pickle.HIGHEST_PROTOCOL)
 
 
 def main():
-    link_df = pd.read_excel('data/topology.xlsx',
+    link_df = pd.read_excel(f'{pathlib.Path(__file__).parent.resolve()}/data/topology.xlsx',
                             engine='openpyxl', sheet_name='link', index_col=0)
 
     # add topo
