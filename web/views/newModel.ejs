@@ -81,5 +81,51 @@
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
     crossorigin="anonymous"
   ></script>
-  <script type="text/javascript" src="js/main.js"></script>
+  <script>
+    $('#fcfs').click(() => {
+      $.blockUI({
+        message: '<i class="fas fa-spinner fa-spin"></i>',
+        css: {
+          borderWidth: '0px',
+          backgroundColor: 'transparent',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+        },
+      })
+      fetch('/api/FCFS').then((res) => {
+        $.unblockUI()
+      })
+    })
+    $('#dynamic').click(() => {
+      $.blockUI({
+        message: '<i class="fas fa-spinner fa-spin"></i>',
+        css: {
+          borderWidth: '0px',
+          backgroundColor: 'transparent',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+        },
+      })
+      fetch('/api/dynamic').then((res) => {
+        $.unblockUI()
+      })
+    })
+    $('#bisection').click(() => {
+      $.blockUI({
+        message: '<i class="fas fa-spinner fa-spin"></i>',
+        css: {
+          borderWidth: '0px',
+          backgroundColor: 'transparent',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+        },
+      })
+      fetch('/api/bisection').then((res) => {
+        $.unblockUI()
+      })
+    })
+  </script>
 </html>

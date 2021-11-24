@@ -4,6 +4,7 @@ var path = require('path')
 var cookieParser = require('cookie-parser')
 var logger = require('morgan')
 const listEndpoints = require('express-list-endpoints')
+let { PythonShell } = require('python-shell')
 
 var apiRouter = require('./routes/api')
 var indexRouter = require('./routes/index')

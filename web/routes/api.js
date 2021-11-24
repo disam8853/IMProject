@@ -1,6 +1,7 @@
 const express = require('express')
 const fetch = require('node-fetch')
 const router = express.Router()
+let { PythonShell } = require('python-shell')
 
 require('dotenv').config()
 const NAPA_API = process.env.NAPA_API
@@ -52,6 +53,19 @@ function callPortUsg(port_id) {
       throw err
     })
 }
+
+const pyFilename = '../NewModel/applyModelFlowEntryInWeb.py'
+router.get('/:model', async (req, res) => {
+  PythonShell.run(pyFilename, { args: [req.params.model] }, function (err, result) {
+    if (err) {
+      console.log(err)
+      res.send(err)
+    } else {
+      console.log(result)
+      res.send(result)
+    }
+  })
+})
 
 router.get('/all-data', async (req, res, next) => {
   let node, link, port_usg
@@ -135,8 +149,7 @@ router.post('/flowentry', (req, res) => {
   })
     .then((response) => {
       console.log(response)
-      if (response.status >= 200 && response.status < 300)
-        return response.json()
+      if (response.status >= 200 && response.status < 300) return response.json()
       else throw new Error('call post flowentry error')
     })
     .then((response) => {
@@ -159,8 +172,7 @@ router.post('/groupentry', (req, res) => {
   })
     .then((response) => {
       console.log(response)
-      if (response.status >= 200 && response.status < 300)
-        return response.json()
+      if (response.status >= 200 && response.status < 300) return response.json()
       else throw new Error('call post groupentry error')
     })
     .then((response) => {

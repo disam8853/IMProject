@@ -25,7 +25,8 @@ def postFlowEntry(params):
     try:
         response = json.loads(r_add_flowentry.text)
         # 將新增的 flow entry 記錄在文字檔中
-        f = open('./data/flowentry.txt', 'a')
+        f = open(
+            f'{pathlib.Path(__file__).parent.resolve()}/data/flowentry.txt', 'a')
         for res in response:
             try:
                 f.write(res["id"] + "\n")
@@ -49,7 +50,7 @@ def createFE(sheetName):
     if r_switch.status_code == requests.codes.ok:
         print("GET request is OK")
         switch_data = json.loads(r_switch.text)
-        decision = pd.read_excel('./data/decision.xlsx',
+        decision = pd.read_excel(f'{pathlib.Path(__file__).parent.resolve()}/data/decision.xlsx',
                                  sheet_name=sheetName, engine='openpyxl')
         f = open(
             f'{pathlib.Path(__file__).parent.resolve()}/data/flowentry.txt', 'w')
