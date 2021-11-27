@@ -101,17 +101,6 @@ def createFE(sheetName):
     else:
         print(r_switch.status_code, "request error!")
 
-    print("press any key to delete all flow entry...", end='')
-    input()
-    # 刪除此次決策所設定的 flow entry
-    f = open(f'{pathlib.Path(__file__).parent.resolve()}/data/flowentry.txt', 'r')
-    for flow_id in f.readlines():
-        flow_id = flow_id.strip()
-        requests.delete(
-            'https://192.168.11.232/api/openflow/flowentry/'+flow_id+'/', auth=('sdbox', 'sdbox'), verify=False)
-        print(f'flow entry {flow_id} is deleted')
-    f.close()
-
 
 if __name__ == '__main__':
     while True:
